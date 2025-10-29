@@ -11,7 +11,7 @@ public class Student {
 
     private boolean reportSubmitted; //
 
-    private Project project;  // The project that the student applied for
+    //private Project project;  // The project that the student applied for
     private List<String> studentAvailability;  // The student's availability for oral presentations
 
 }
