@@ -11,7 +11,7 @@ public class Professor {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long professor_id;
     private String name;
- //   private ArrayList<String> listOfProjects;
+ //   private ArrayList<Project> listOfProjects;
 
     public Professor(String name, Long id) {
         this.name = name;
