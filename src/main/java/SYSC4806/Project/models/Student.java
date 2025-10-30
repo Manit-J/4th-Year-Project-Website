@@ -1,7 +1,9 @@
+package SYSC4806.Project.models;
+
 import java.util.List;
 
 /**
- * Student class represents a student in the 4th Year Project Management System
+ * SYSC4806.Project.models.Student class represents a student in the 4th Year Project Management System
  */
 public class Student {
             // Unique identifier for the student
@@ -11,7 +13,7 @@ public class Student {
 
     private boolean reportSubmitted; //
 
-    //private Project project;  // The project that the student applied for
+    private Project project;  // The project that the student applied for
     private List<String> studentAvailability;  // The student's availability for oral presentations
 
 }
