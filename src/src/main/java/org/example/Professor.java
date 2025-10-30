@@ -1,6 +1,8 @@
 package org.example;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+
 
 @Entity
 public class Professor {
@@ -9,10 +11,12 @@ public class Professor {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long professor_id;
     private String name;
+ //   private ArrayList<String> listOfProjects;
 
     public Professor(String name, Long id) {
         this.name = name;
         this.professor_id = id;
+        //listOfProjects = new ArrayList<>();
     }
 
     public Professor() {
@@ -37,14 +41,21 @@ public class Professor {
     }
 
     /***
+    public List<Project> getProjects(){
+        return listOfProjects;
+    }
+
     public void addStudent(Student student){
-        project.add(student);
+       //implement code to add students to projects
     }
     public void removeStudent(Student student){
-        project.remove(student);
-    }
-    public void viewStudents(){
+     //implement code to remove students to projects
 
-    }
+     }
+    public void viewStudents(){
+     //implement code to view students in projects
+
+
+     }
      **/
 }
