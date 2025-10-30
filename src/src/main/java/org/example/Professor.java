@@ -7,25 +7,25 @@ public class Professor {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long coordinator_id;
+    private Long professor_id;
     private String name;
 
     public Professor(String name, Long id) {
         this.name = name;
-        this.coordinator_id = id;
+        this.professor_id = id;
     }
 
     public Professor() {
-        name = "Coordinator";
-        coordinator_id = 0L;
+        name = "Professor";
+        professor_id = 0L;
     }
 
     public Long getId() {
-        return coordinator_id;
+        return professor_id;
     }
 
     public void setId(Long id) {
-        this.coordinator_id = id;
+        this.professor_id = id;
     }
 
     public String getName() {
