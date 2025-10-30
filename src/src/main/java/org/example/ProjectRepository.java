@@ -1,6 +1,5 @@
-package SYSC4806.Project.repositories;
+package org.example;
 
-import SYSC4806.Project.models.Project;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ProjectRepository extends CrudRepository<Project,Long>

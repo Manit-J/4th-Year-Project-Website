@@ -1,9 +1,9 @@
-package SYSC4806.Project.models;
+package org.example;
 
 import java.util.List;
 
 /**
- * SYSC4806.Project.models.Student class represents a student in the 4th Year Project Management System
+ * org.example.Student class represents a student in the 4th Year Project Management System
  */
 public class Student {
             // Unique identifier for the student
