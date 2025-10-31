@@ -165,12 +165,5 @@ public class Student {
                 java.util.Objects.equals(studentAvailability, student.studentAvailability);
     }
 
-    @Override
-    public int hashCode() {
-        // Use Objects.hash for consistency with equals()
-        return java.util.Objects.hash(studentID, studentName, studentEmail, reportSubmitted, studentAvailability);
-    }
-
-
 }
 
