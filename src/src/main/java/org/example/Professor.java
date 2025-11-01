@@ -15,7 +15,11 @@ public class Professor {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long professor_id;
     private String name; //professor name
-    @OneToMany(mappedBy = "professor_id", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "project_professor",
+            joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "professor_id",
+                    referencedColumnName = "professor_id"))
     private List<Project> listOfProjects; //list of projects they supervise
 
     /***
