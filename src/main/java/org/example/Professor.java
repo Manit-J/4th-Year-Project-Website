@@ -1,7 +1,7 @@
-package SYSC4806.Project.models;
+package org.example;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 
 @Entity
@@ -10,13 +10,14 @@ public class Professor {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long professor_id;
+
     private String name;
-    private ArrayList<Project> listOfProjects;
+    //private List<Project> listOfProjects; - error (Manit)
 
     public Professor(String name, Long id) {
         this.name = name;
         this.professor_id = id;
-        listOfProjects = new ArrayList<>();
+        //listOfProjects = new ArrayList<>(); - error (Manit)
     }
 
     public Professor() {

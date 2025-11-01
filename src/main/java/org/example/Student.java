@@ -1,4 +1,4 @@
-package SYSC4806.Project.models;
+package org.example;
 
 import java.util.List;
 
