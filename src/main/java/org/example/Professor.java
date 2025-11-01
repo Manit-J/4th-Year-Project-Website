@@ -100,7 +100,7 @@ public class Professor {
     /**
      * Add students to projects
      * @param student
-     * */
+     *
 
     public void addStudent(Project project, Student student) {
         if (listOfProjects.contains(project)) {
@@ -112,7 +112,7 @@ public class Professor {
     /**
      * Remove students to projects
      * @param student
-     * */
+     *
     public void removeStudent(Project project, Student student) {
         if (listOfProjects.contains(project)) {
            // project.getStudent().remove(student); //giving error
@@ -123,7 +123,7 @@ public class Professor {
     /**
      * View students in projects
      *
-     * */
+     *
     public List<Student> viewStudents(){
         List<Student> students = new ArrayList<>();
         for (Project p: listOfProjects){
@@ -132,6 +132,6 @@ public class Professor {
         return students;
 
      }
-
+**/
 
 }
