@@ -21,14 +21,14 @@ public class ProfessorTest {
     @Before
     public void setUp() {
         //initialize these objects
-        professor = new Professor(1L,"John Doe");
+        professor = new Professor("John Doe");
         project = new Project();
-        student1 = new Student(1L,"John");
-        student2 = new Student(2L,"Alice");
+        student1 = new Student("John");
+        student2 = new Student("Alice");
     }
 
     @Test
-    public void testName(){
+    public void testConstructor(){
         //test if name is same
         assertEquals("John Doe", professor.getName());
 
@@ -41,6 +41,12 @@ public class ProfessorTest {
         //assert it is equal to 1
         assertEquals(1, projects.size());
 
+    }
+
+    @Test
+    public void testListofProjects(){
+        projects.add(project);
+        assertEquals(1,projects.size());
     }
 
     @Test

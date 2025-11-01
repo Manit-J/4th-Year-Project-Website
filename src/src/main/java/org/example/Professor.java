@@ -15,7 +15,7 @@ public class Professor {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long professor_id;
     private String name; //professor name
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "professor_id", cascade = CascadeType.ALL)
     private List<Project> listOfProjects; //list of projects they supervise
 
     /***
@@ -23,8 +23,7 @@ public class Professor {
      * @param name prof name
      *        id prof id
      * */
-    public Professor(Long id, String name) {
-        this.professor_id = id;
+    public Professor(String name) {
         this.name = name;
         listOfProjects = new ArrayList<>();
     }
@@ -99,18 +98,24 @@ public class Professor {
      * @param student
      * */
 
-    public void addStudent(Student student){
-       //implement code to add students to projects
-
+    public void addStudent(Project project, Student student) {
+        if (listOfProjects.contains(project)) {
+            project.getStudent().add(student);
+        } else {
+            System.out.println("Professor " + name + " does not supervise this project.");
+        }
     }
     /**
      * Remove students to projects
      * @param student
      * */
-    public void removeStudent(Student student){
-     //implement code to remove students to projects
-
-     }
+    public void removeStudent(Project project, Student student) {
+        if (listOfProjects.contains(project)) {
+            project.getStudent().remove(student);
+        } else {
+            System.out.println("Professor " + name + " does not supervise this project.");
+        }
+    }
     /**
      * View students in projects
      *
@@ -123,11 +128,6 @@ public class Professor {
         return students;
 
      }
-
-    public static void main(String[] args) {
-        Professor professor = new Professor(1L,"Professor");
-        System.out.println(professor.toString());
-    }
 
 
 }
