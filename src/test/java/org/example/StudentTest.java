@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 public class StudentTest {
 
     private Student student;
+    private Project project;
 
     /**
      * Creates a new Student object before each test.
@@ -19,6 +20,8 @@ public class StudentTest {
     @Before
     public void setUp() {
         student = new Student();
+        project = new Project();
+        project.setName("Test Project");
     }
 
     /**
@@ -95,6 +98,18 @@ public class StudentTest {
         student.setStudentAvailability(availability);
         assertEquals(availability, student.getStudentAvailability());
         assertEquals(2, student.getStudentAvailability().size());
+    }
+
+    /**
+     * Test the setter and getter for the attribute project.
+     */
+    @Test
+    public void testProjectGetterSetter() {
+        project = new Project();
+        project.setName("Test Project");
+
+        student.setProject(project);
+        assertEquals("Test Project", student.getProject().getName());
     }
 
     /**

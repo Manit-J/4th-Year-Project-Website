@@ -14,9 +14,9 @@ public class Student {
 
     private String studentEmail;  // The student's email
 
-    private boolean reportSubmitted; //
+    private boolean reportSubmitted; // report submission status
 
-    //private Project project;  // The project that the student applied for
+    private Project project;  // The project that the student applied for
     private List<String> studentAvailability;  // The student's availability for oral presentations
 
     /**
@@ -135,6 +135,24 @@ public class Student {
      */
     public void setStudentAvailability(List<String> studentAvailability) {
         this.studentAvailability = studentAvailability;
+    }
+
+    /**
+     * Gets the project that the student applied for.
+     *
+     * @return the project
+     */
+    public Project getProject() {
+        return project;
+    }
+
+    /**
+     * Sets the project that the student applied for.
+     *
+     * @param project the project to set
+     */
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     /**
