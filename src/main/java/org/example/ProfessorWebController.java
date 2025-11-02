@@ -20,7 +20,7 @@ public class ProfessorWebController {
     @GetMapping
     public String viewAllProfessors(Model model) {
         model.addAttribute("professors", professorRepository.findAll());
-        return "professors"; // → templates/professors.html
+        return "professors"; //templates/professors.html
     }
 
     //Show form to add a new professor
