@@ -1,4 +1,4 @@
-package org.example;
+package main.java.org.example;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class Project {
     private String status; // Project Availability(e.g.,Available, Full, Completed...)
     private int academicYear;
 
-    @ElementCollection // adding this annotation here since JPA doesn't allow lists of strings otherwise (Manit)
+    @ElementCollection // adding this annotation here since JPA doesn't allow lists of strings otherwise
     private List<String> requiredSkills = new ArrayList<>();;
 
     /**
