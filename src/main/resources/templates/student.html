@@ -3,7 +3,9 @@
 <head>
     <title>Student Management</title>
     <style>
-        input, button { margin: 5px; }
+        input, button {
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
@@ -11,11 +13,13 @@
 <input type="number" id="studentID" placeholder="Student ID"> // enter the student's ID
 <input type="text" id="studentName" placeholder="Student Name"> // enter the student's name
 <input type="text" id="studentEmail" placeholder="Student Email"> // enter the student's email
-<button onclick="addStudent()">Add Student</button> // add button to add the student
+<button onclick="addStudent()">Add Student</button>
+// add button to add the student
 
 <h2>Remove Student</h2> // overview to remove a student
 <input type="number" id="removeID" placeholder="Student ID"> // enter the student's ID
-<button onclick="removeStudent()">Remove Student</button> // remove button to remove the student
+<button onclick="removeStudent()">Remove Student</button>
+// remove button to remove the student
 
 <h3>Current Students</h3>
 <ul id="studentList"></ul>
@@ -37,7 +41,7 @@
         const id = document.getElementById('studentID').value;
         const name = document.getElementById('studentName').value;
         const email = document.getElementById('studentEmail').value;
-        if(id && name && email) {
+        if (id && name && email) {
             students.push({id, name, email});
             renderList();
             // Clear inputs
@@ -50,7 +54,7 @@
     function removeStudent() {
         const id = document.getElementById('removeID').value;
         const index = students.findIndex(s => s.id === id);
-        if(index !== -1) {
+        if (index !== -1) {
             students.splice(index, 1);
             renderList();
             document.getElementById('removeID').value = '';
