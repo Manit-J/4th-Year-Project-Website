@@ -14,12 +14,12 @@ public class Professor {
     @Id //Primary key
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long professor_id;
+
     private String name; //professor name
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "project_professor",
-            joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "professor_id",
-                    referencedColumnName = "professor_id"))
+            joinColumns = @JoinColumn(name = "professor_id", referencedColumnName = "professor_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"))
     private List<Project> listOfProjects; //list of projects they supervise
 
     /***
