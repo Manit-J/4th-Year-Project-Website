@@ -1,4 +1,4 @@
-package org.example;
+package main.java.org.example;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -75,10 +75,10 @@ public class Professor {
         return "ID:" + professor_id + " Name: " + name;
     }
 
-    /**
+    /** Commented out bc getProfessor is giving error
      * Allows prof to add project they want to supervise
      * @param project
-     * */
+     *
     public void addProject(Project project){
         if (project.getProfessor().contains(this)) {
             listOfProjects.add(project);
@@ -87,7 +87,7 @@ public class Professor {
             System.out.println(name + " not supervising this project");
         }
     }
-
+    **/
     /**
      * Return list of projects professor is supervising
      * @return List
@@ -100,11 +100,11 @@ public class Professor {
     /**
      * Add students to projects
      * @param student
-     * */
+     *
 
     public void addStudent(Project project, Student student) {
         if (listOfProjects.contains(project)) {
-            project.getStudent().add(student);
+           // project.getStudent().add(student); //giving errors
         } else {
             System.out.println("Professor " + name + " does not supervise this project.");
         }
@@ -112,10 +112,10 @@ public class Professor {
     /**
      * Remove students to projects
      * @param student
-     * */
+     *
     public void removeStudent(Project project, Student student) {
         if (listOfProjects.contains(project)) {
-            project.getStudent().remove(student);
+           // project.getStudent().remove(student); //giving error
         } else {
             System.out.println("Professor " + name + " does not supervise this project.");
         }
@@ -123,15 +123,15 @@ public class Professor {
     /**
      * View students in projects
      *
-     * */
+     *
     public List<Student> viewStudents(){
         List<Student> students = new ArrayList<>();
         for (Project p: listOfProjects){
-            students.addAll(p.getStudent());
+            //students.addAll(p.getStudent());
         }
         return students;
 
      }
-
+**/
 
 }
