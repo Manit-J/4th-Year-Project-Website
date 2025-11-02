@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Remove Professor</title>
+</head>
+<body>
+<h2>Remove Professor</h2>
+
+<form th:action="@{/professor/remove}" method="post">
+    <label for="professor_id">Name:</label>
+    <input type="text" id="professor_id" name="professor_id"/><br>
+
+    <input type="submit" value="Remove Professor"/>
+</form>
+
+</body>
+</html>
