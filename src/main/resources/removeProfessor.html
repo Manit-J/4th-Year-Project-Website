@@ -6,8 +6,8 @@
 <body>
 <h2>Remove Professor</h2>
 
-<form th:action="@{/professor/remove}" method="post">
-    <label for="professor_id">Name:</label>
+<form th:action="@{/professors/delete" method="get">
+    <label for="professor_id">Professor ID:</label>
     <input type="text" id="professor_id" name="professor_id"/><br>
 
     <input type="submit" value="Remove Professor"/>
