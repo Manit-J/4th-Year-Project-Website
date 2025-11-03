@@ -59,6 +59,7 @@ jobs:
         with:
           app-name: 'Project-11-SYSC-4th-Year-Project-Website'
           slot-name: 'Production'
-          package: 'target/*.jar'
+          package: '*.jar'
 
           
+
