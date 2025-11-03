@@ -5,6 +5,8 @@ A website showing 4th Year Projects available.
 
 The purpose of this website is to be able to view the list of projects available for students to join. The projects will have descriptions detailing the title, professor supervising, and department it is being offered under. 
 
+The website can be found here: project-11-sysc-4th-year-project-website-c6g3cjdpb4djffeq.canadacentral-01.azurewebsites.net
+
 ## Authors
 * Sandy Alzabadani
 * Zeena Ford
