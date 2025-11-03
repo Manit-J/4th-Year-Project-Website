@@ -45,9 +45,9 @@ For the next milestone, the team will focus on preparing the alpha release of th
   **Projects Table:**
     - `id` (INT, PRIMARY KEY)
     - `name` (NOTNULL)
-    - `capacity` (VARCHAR(255), NOT NULL)
-    - `description` (VARCHAR)
-    - `status` (VARCHAR)
+    - `capacity` (VARCHAR(...), NOT NULL)
+    - `description` (VARCHAR(...))
+    - `status` (VARCHAR(...))
     - ’academic_year’(INT)
 
   **Student Table**
