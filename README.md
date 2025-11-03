@@ -36,5 +36,26 @@ The purpose of this website is to be able to view the list of projects available
 ## Work for next Milestone
 For the next milestone, the team will focus on preparing the alpha release of the system. We will be making sure that the app is functional and provides a meaningful experience for users, even if all planned features are not yet included. The goal is to have several core features working together smoothly, allowing users to perform useful tasks within the app. Additionally, the README on GitHub will be updated to include a clear and detailed plan for the upcoming sprint, outlining the next steps, priorities, and feature implementations to guide further development.
 
+## Database Schema
+  **Professor Table:**
+      - `professor_id` (INT, PRIMARY KEY)
+      - `name` (VARCHAR(...), UNIQUE, NOT NULL)
+    
+
+  **Projects Table:**
+    - `id` (INT, PRIMARY KEY)
+    - `name` (NOTNULL)
+    - `capacity` (VARCHAR(255), NOT NULL)
+    - `description` (VARCHAR)
+    - `status` (VARCHAR)
+    - ’academic_year’(INT)
+
+  **Student Table**
+    - 'id' (INT, PRIMARY KEY)
+    - 'student_name' (VARCHAR(...), NOT NULL)
+    - 'student_email' (VARCHAR(...))
+    - 'report_submitted' (BOOLEAN)
+    - 'project_id' (INT, FOREIGN KEY references id in Project)
+
 
 [![Java CI with Maven](https://github.com/Manit-J/4th-Year-Project-Website/actions/workflows/maven.yml/badge.svg)](https://github.com/Manit-J/4th-Year-Project-Website/actions/workflows/maven.yml)
