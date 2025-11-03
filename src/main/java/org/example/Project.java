@@ -1,4 +1,4 @@
-package main.java.org.example;
+package org.example;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
