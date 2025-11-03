@@ -1,4 +1,4 @@
-package main.java.org.example;
+package org.example;
 
 import org.junit.Before;
 import org.junit.Test;
