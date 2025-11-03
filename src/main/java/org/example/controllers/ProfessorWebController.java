@@ -1,10 +1,13 @@
-package org.example;
+package org.example.controllers;
 
+import org.example.Professor;
+import org.example.repositories.ProfessorRepository;
+import org.example.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-////
+
 @Controller
 @RequestMapping("/professors")
 public class ProfessorWebController {
@@ -30,7 +33,7 @@ public class ProfessorWebController {
     public String showAddForm(Model model) {
         model.addAttribute("professor", new Professor());
         model.addAttribute("projects", projectRepository.findAll());
-        return "add-professor"; //templates/add-professor.html
+        return "professors"; //templates/add-professor.html
     }
 
     //Add a new professor
@@ -44,6 +47,6 @@ public class ProfessorWebController {
     @GetMapping("/delete/{id}")
     public String deleteProfessor(@PathVariable Long id) {
         professorRepository.deleteById(id);
-        return "redirect:/professors";
+        return "redirect:/removeProfessors";
     }
 }

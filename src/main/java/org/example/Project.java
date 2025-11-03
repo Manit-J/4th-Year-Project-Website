@@ -18,9 +18,7 @@ public class Project {
     private String department; //e.g.,Software, Electrical, Mechanical...
     private String status; // Project Availability(e.g.,Available, Full, Completed...)
     private int academicYear;
-
-    @ElementCollection // adding this annotation here since JPA doesn't allow lists of strings otherwise (Manit)
-    private List<String> requiredSkills = new ArrayList<>();
+    private String requiredSkills;
 
     /**
      * One Project can have many students
@@ -84,11 +82,11 @@ public class Project {
         this.academicYear = academicYear;
     }
 
-    public List<String> getRequiredSkills() {
+    public String getRequiredSkills() {
         return requiredSkills;
     }
 
-    public void setRequiredSkills(List<String> requiredSkills) {
+    public void setRequiredSkills(String requiredSkills) {
         this.requiredSkills = requiredSkills;
     }
 
@@ -116,7 +114,7 @@ public class Project {
         this.description = description;
     }
 
-    public Project(Long id, String name, int capacity, String description, String department, String status, List<String> requiredSkills, int academicYear, List<Student> students, List<Professor> professor) {
+    public Project(Long id, String name, int capacity, String description, String department, String status, String requiredSkills, int academicYear, List<Student> students, List<Professor> professor) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;

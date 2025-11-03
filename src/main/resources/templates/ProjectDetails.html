@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Project Details</title>
 </head>
@@ -13,7 +13,7 @@
 <p><strong>Required Skills:</strong>
     <span th:each="skill : ${project.requiredSkills}" th:text="${skill} + ', '"></span>
 </p>
-<a th:href="@{/projects}">
+<a th:href="@{/project}">
     <button type="button">Back to Projects</button>
 </a>
 </body>
