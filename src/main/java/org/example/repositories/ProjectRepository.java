@@ -1,5 +1,6 @@
-package org.example;
+package org.example.repositories;
 
+import org.example.Project;
 import org.springframework.data.repository.CrudRepository;
 
 

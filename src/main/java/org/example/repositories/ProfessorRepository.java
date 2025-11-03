@@ -1,5 +1,6 @@
-package org.example;
+package org.example.repositories;
 
+import org.example.Professor;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
