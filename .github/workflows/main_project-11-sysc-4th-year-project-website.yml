@@ -21,7 +21,7 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'microsoft'
 
       - name: Build with Maven
@@ -59,5 +59,6 @@ jobs:
         with:
           app-name: 'Project-11-SYSC-4th-Year-Project-Website'
           slot-name: 'Production'
-          package: '*.jar'
+          package: 'target/*.jar'
+
           
