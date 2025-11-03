@@ -51,11 +51,11 @@ For the next milestone, the team will focus on preparing the alpha release of th
     - ’academic_year’(INT)
 
   **Student Table**
-    - 'id' (INT, PRIMARY KEY)
-    - 'student_name' (VARCHAR(...), NOT NULL)
-    - 'student_email' (VARCHAR(...))
-    - 'report_submitted' (BOOLEAN)
-    - 'project_id' (INT, FOREIGN KEY references id in Project)
+    - `id` (INT, PRIMARY KEY)
+    - `student_name` (VARCHAR(...), NOT NULL)
+    - `student_email` (VARCHAR(...))
+    - `report_submitted` (BOOLEAN)
+    - `project_id` (INT, FOREIGN KEY references id in Project)
 
 
 [![Java CI with Maven](https://github.com/Manit-J/4th-Year-Project-Website/actions/workflows/maven.yml/badge.svg)](https://github.com/Manit-J/4th-Year-Project-Website/actions/workflows/maven.yml)
