@@ -8,8 +8,8 @@ The purpose of this website is to be able to view the list of projects available
 ## Authors
 * Sandy Alzabadani
 * Zeena Ford
-* Manit Jawa
 * Raiqah Islam
+* Manit Jawa
 * Zeina Mouhtadi 
 
 ## Work Done this Milestone
