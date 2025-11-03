@@ -18,6 +18,8 @@ Currently,the project has foundational components of the system in place. The co
 
 The application supports essential CRUD functionality for these entities through simple, functional web interfaces. The existing HTML templates provide basic data display and input capabilities, though they are minimal in design.
 
+<img width="2716" height="4340" alt="image" src="https://github.com/user-attachments/assets/0d91009c-e4c6-4a34-abf1-11b47850b815" />
+
 ## Work Done this Milestone
 
 1. Student was implemented
