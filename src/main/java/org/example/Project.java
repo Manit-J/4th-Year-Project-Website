@@ -19,21 +19,21 @@ public class Project {
     private String status; // Project Availability(e.g.,Available, Full, Completed...)
     private int academicYear;
 
-    @ElementCollection // adding this annotation here since JPA doesn't allow lists of strings otherwise
-    private List<String> requiredSkills = new ArrayList<>();;
+    @ElementCollection // adding this annotation here since JPA doesn't allow lists of strings otherwise (Manit)
+    private List<String> requiredSkills = new ArrayList<>();
 
     /**
      * One Project can have many students
      * CascadeType.ALL means all operations (persist...) apply to related students
      * FetchType.EAGER loads students whenever the project is loaded
      */
-//    Commenting out the following code because we are still working on relationships
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    public List<Student> students = new ArrayList<>();;
-//
-//    //One project can have multiple professors
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    public List<Professor> professor = new ArrayList<>();;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "project")
+    public List<Student> students = new ArrayList<>();
+
+    //One project can have multiple professors
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "listOfProjects")
+    public List<Professor> professor = new ArrayList<>();
 
     //Getters and Setters
     public Long getId() {
@@ -60,22 +60,21 @@ public class Project {
         this.capacity = capacity;
     }
 
-//    Commenting out the following code as it gives errors
-//    public List<Professor> getProfessor() {
-//        return professor;
-//    }
-//
-//    public void setProfessor(List<Professor> professor) {
-//        this.professor = professor;
-//    }
-//
-//    public List<Student> getStudent() {
-//        return students;
-//    }
-//
-//    public void setStudent(List<Student> students) {
-//        this.students = students;
-//    }
+    public List<Professor> getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(List<Professor> professor) {
+        this.professor = professor;
+    }
+
+    public List<Student> getStudent() {
+        return students;
+    }
+
+    public void setStudent(List<Student> students) {
+        this.students = students;
+    }
 
     public int getAcademicYear() {
         return academicYear;
@@ -126,9 +125,8 @@ public class Project {
         this.status = status;
         this.requiredSkills = requiredSkills;
         this.academicYear = academicYear;
-        // Commenting out the following code as it gives errors
-        //this.students = students;
-        //this.professor = professor;
+        this.students = students;
+        this.professor = professor;
     }
 
     //Default constructor to be used by JPA
