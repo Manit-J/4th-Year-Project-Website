@@ -59,6 +59,8 @@ Additionally, the README on GitHub will be updated to include a clear and detail
   **Professor Table:**
       - `professor_id` (INT, PRIMARY KEY)
       - `name` (VARCHAR(...), UNIQUE, NOT NULL)
+      <img width="764" height="263" alt="image" src="https://github.com/user-attachments/assets/2d4834b0-e2cf-44ab-9703-861321e40dec" />
+
     
   **Projects Table:**
     - `id` (INT, PRIMARY KEY)
@@ -67,6 +69,7 @@ Additionally, the README on GitHub will be updated to include a clear and detail
     - `description` (VARCHAR(...))
     - `status` (VARCHAR(...))
     - `academic_year` (INT)
+<img width="1006" height="388" alt="image" src="https://github.com/user-attachments/assets/3c17d78c-0bd0-458b-8d20-cf28b4b8aae0" />
 
   **Student Table**
     - `id` (INT, PRIMARY KEY)
@@ -74,6 +77,6 @@ Additionally, the README on GitHub will be updated to include a clear and detail
     - `student_email` (VARCHAR(...))
     - `report_submitted` (BOOLEAN)
     - `project_id` (INT, FOREIGN KEY references id in Project)
-
+<img width="1047" height="288" alt="image" src="https://github.com/user-attachments/assets/d16d0f5e-a636-4c8b-9c13-e1c2c3924e79" />
 
 [![Java CI with Maven](https://github.com/Manit-J/4th-Year-Project-Website/actions/workflows/maven.yml/badge.svg)](https://github.com/Manit-J/4th-Year-Project-Website/actions/workflows/maven.yml)
