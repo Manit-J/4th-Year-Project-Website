@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Professors</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>Professors</h1>
+
+<form th:action="@{/professors/add}" method="post" th:object="${professor}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Enter professor name" required/>
+    <button type="submit">Add Professor</button>
+</form>
+
+<hr/>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="professor : ${professors}">
+        <td th:text="${professor.id}">ID</td>
+        <td th:text="${professor.name}">Name</td>
+        <td>
+            <a th:href="@{'/professors/delete/' + ${professor.id}}">Remove</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
