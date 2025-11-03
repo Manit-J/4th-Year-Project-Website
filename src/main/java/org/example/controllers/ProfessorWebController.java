@@ -31,7 +31,7 @@ public class ProfessorWebController {
     @PostMapping("/add")
     public String addProfessor(@ModelAttribute Professor professor) {
         professorRepository.save(professor);
-        return "redirect:/professors"; // refresh list
+        return "redirect:/professors"; // redirect to list
     }
 
     @GetMapping("/delete/{id}")
