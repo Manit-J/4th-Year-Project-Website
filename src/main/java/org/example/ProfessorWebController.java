@@ -1,13 +1,15 @@
 package org.example;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+////
 @Controller
 @RequestMapping("/professors")
 public class ProfessorWebController {
 
+    @Autowired
     private final ProfessorRepository professorRepository;
     private final ProjectRepository projectRepository; // if professors choose projects
 
@@ -20,7 +22,7 @@ public class ProfessorWebController {
     @GetMapping
     public String viewAllProfessors(Model model) {
         model.addAttribute("professors", professorRepository.findAll());
-        return "professors"; //templates/professors.html
+        return "professors"; // templates/professors.html/
     }
 
     //Show form to add a new professor
