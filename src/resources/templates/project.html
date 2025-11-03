@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Milestone Project Selection</title>
+</head>
+<body>
+<h1>Available Projects</h1>
+
+<!-- List of projects: -->
+<!-- Loops through all projects and display n ame, department, and status-->
+<ul>
+    <li th:each="proj : ${project}">
+        <strong th:text="${proj.name}"></strong>
+        <span th:text="${proj.department}"></span>,
+        <span th:text="${proj.status}"></span>
+        <br/>
+        <a th:href="@{/project/{id}(id=${proj.id})}">
+            <button type="button">View Details</button>
+        </a>
+        <a th:href="@{/project/delete/{id}(id=${proj.id})}">
+            <button type="button">Remove</button>
+        </a>
+    </li>
+</ul>
+
+<hr/>
+<!-- Add a New Project -->
+<form th:action="@{/project/add}" th:object="${newProject}" method="post">
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" required/><br/>
+
+    <label>Description:</label>
+    <input type="text" th:field="*{description}" required/><br/>
+
+    <label>Supervisor:</label>
+    <input type="text" th:field="*{professor}" /><br/>
+
+    <label>Capacity:</label>
+    <input type="number" th:field="*{capacity}" required/><br/>
+
+    <label>Department:</label>
+    <input type="text" th:field="*{department}" required/><br/>
+
+    <label>Status:</label>
+    <input type="text" th:field="*{status}" required/><br/>
+
+    <label>Academic Year:</label>
+    <input type="number" th:field="*{academicYear}" required/><br/>
+
+    <label>Required Skills (comma-separated):</label>
+    <input type="text" th:field="*{requiredSkills}" /><br/>
+
+    <button type="submit">Add Project</button>
+</form>
+</body>
+</html>
