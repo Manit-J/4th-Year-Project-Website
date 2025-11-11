@@ -38,9 +38,9 @@ public class Professor {
      * Default constructor
      * */
     public Professor() {
-        name = "Professor";
+        name = "";
         professor_id = 0L;
-        email = "jondoe@email.com";
+        email = "";
     }
 
     /***

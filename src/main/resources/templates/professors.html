@@ -8,9 +8,11 @@
 
 <form th:action="@{/professors/add}" method="post" th:object="${professor}">
     <label for="name">Name:</label>
-    <label for="email">Email:</label>
     <input type="text" id="name" th:field="*{name}" placeholder="Enter professor name" required/>
+    <label for="email">Email:</label>
     <input type="text" id="email" th:field="*{email}" placeholder="Enter professor email" required/>
+    <!--<label for="project">Project:</label>
+    <input type="text" id="project" th:field="*{project}" placeholder="Enter project" required/>-->
     <button type="submit">Add Professor</button>
 </form>
 
