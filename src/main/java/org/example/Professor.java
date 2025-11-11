@@ -16,6 +16,7 @@ public class Professor {
     private Long professor_id;
 
     private String name; //professor name
+    private String email; //prof's email
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "project_professor",
             joinColumns = @JoinColumn(name = "professor_id", referencedColumnName = "professor_id"),
@@ -27,8 +28,9 @@ public class Professor {
      * @param name prof name
      *        id prof id
      * */
-    public Professor(String name) {
+    public Professor(String name, String email) {
         this.name = name;
+        this.email = email;
         listOfProjects = new ArrayList<>();
     }
 
@@ -38,6 +40,7 @@ public class Professor {
     public Professor() {
         name = "Professor";
         professor_id = 0L;
+        email = "jondoe@email.com";
     }
 
     /***
@@ -70,10 +73,32 @@ public class Professor {
     public void setName(String name) {
         this.name = name;
     }
+
+    /***
+     * Get professor's email
+     * @return String of email
+     * */
+     public String getEmail() {
+        return email;
+    }
+    /***
+     * Get professor's name
+     * @param name
+     * */
+
+    /***
+     * Get professor's name
+     * @param email
+     * */
+    public void setEmail(String email) {
+        this.email = email;
+    }
     @Override
     public String toString() {
         return "ID:" + professor_id + " Name: " + name;
     }
+
+
 
     /** Commented out bc getProfessor is giving error
      * Allows prof to add project they want to supervise

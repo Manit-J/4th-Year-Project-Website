@@ -8,7 +8,9 @@
 
 <form th:action="@{/professors/add}" method="post" th:object="${professor}">
     <label for="name">Name:</label>
+    <label for="email">Email:</label>
     <input type="text" id="name" th:field="*{name}" placeholder="Enter professor name" required/>
+    <input type="text" id="email" th:field="*{email}" placeholder="Enter professor email" required/>
     <button type="submit">Add Professor</button>
 </form>
 
@@ -19,6 +21,7 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Email</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -26,6 +29,7 @@
     <tr th:each="professor : ${professors}">
         <td th:text="${professor.id}">ID</td>
         <td th:text="${professor.name}">Name</td>
+        <td th:text="${professor.email}">Email</td>
         <td>
             <a th:href="@{'/professors/delete/' + ${professor.id}}">Remove</a>
         </td>
