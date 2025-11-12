@@ -52,14 +52,19 @@ public class ProjectController {
     }**/
 
   @PostMapping("/add")
-  public String addProject(@ModelAttribute("newProject") Project newProject, @RequestParam("professorId") Long professorId) {
-      Professor professor = professorRepository.findById(professorId).orElse(null);
-      if (professor != null) {
-          professor.addProject(newProject);
-          professorRepository.save(professor);
-
+  public String addProject(@ModelAttribute("newProject") Project newProject,
+                           @RequestParam(value = "professorId", required = false) Long professorId) {
+      if (professorId != null) {
+          Professor professor = professorRepository.findById(professorId).orElse(null);
+          if (professor != null) {
+              professor.addProject(newProject);
+              professorRepository.save(professor);
+          }
+          return "redirect:/project?professorId=" + professorId;
+      } else {
+          projectRepository.save(newProject);
+          return "redirect:/project";
       }
-      return "redirect:/project?professorId=" + professorId;
   }
 
     @PostMapping("/delete/{id}")
