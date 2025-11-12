@@ -26,6 +26,9 @@
 <hr/>
 <!-- Add a New Project -->
 <form th:action="@{/project/add}" th:object="${newProject}" method="post">
+
+    <input type="hidden" name="professorId" th:value="${professorId}" />
+
     <label>Name:</label>
     <input type="text" th:field="*{name}" required/><br/>
 

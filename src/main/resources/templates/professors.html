@@ -2,6 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Professors</title>
+    <style>
+        .action-link {
+            margin-right: 15px;
+            text-decoration: none;
+            color: blue; /* or whatever you prefer */
+        }
+    </style>
+
 </head>
 <body>
 <h1>Professors</h1>
@@ -33,7 +41,8 @@
         <td th:text="${professor.name}">Name</td>
         <td th:text="${professor.email}">Email</td>
         <td>
-            <a th:href="@{'/professors/delete/' + ${professor.id}}">Remove</a>
+            <a th:href="@{'/professors/delete/' + ${professor.id}}" class="action-link">Remove</a>
+            <a th:href="@{/project/new(professorId=${professor.id})}">Add Project</a>
         </td>
     </tr>
     </tbody>

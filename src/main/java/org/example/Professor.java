@@ -12,7 +12,7 @@ import java.util.List;
 public class Professor {
 
     @Id //Primary key
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long professor_id;
 
     private String name; //professor name
@@ -36,7 +36,8 @@ public class Professor {
 
     /**
      * Default constructor
-     * */
+     *
+     */
     public Professor() {
         name = "";
         professor_id = 0L;
@@ -50,6 +51,7 @@ public class Professor {
     public Long getId() {
         return professor_id;
     }
+
     /***
      * Set professor's id
      * @param id
@@ -65,6 +67,7 @@ public class Professor {
     public String getName() {
         return name;
     }
+
     /***
      * Get professor's name
      * @param name
@@ -78,7 +81,7 @@ public class Professor {
      * Get professor's email
      * @return String of email
      * */
-     public String getEmail() {
+    public String getEmail() {
         return email;
     }
     /***
@@ -93,70 +96,37 @@ public class Professor {
     public void setEmail(String email) {
         this.email = email;
     }
+
     @Override
     public String toString() {
         return "ID:" + professor_id + " Name: " + name;
     }
 
 
-
-    /** Commented out bc getProfessor is giving error
+    /*******
      * Allows prof to add project they want to supervise
      * @param project
-     *
-    public void addProject(Project project){
-        if (project.getProfessor().contains(this)) {
+     **/
+    public void addProject(Project project) {
+        if (!listOfProjects.contains(project)) {
             listOfProjects.add(project);
-        }
-        else{
-            System.out.println(name + " not supervising this project");
+            project.getProfessor().add(this); // keep both sides in sync
         }
     }
-    **/
+
     /**
      * Return list of projects professor is supervising
+     *
      * @return List
-     * */
+     *
+     */
 
-    public List<Project> getProjects(){
+    public List<Project> getProjects() {
         return listOfProjects;
 
-    }
-    /**
-     * Add students to projects
-     * @param student
-     *
 
-    public void addStudent(Project project, Student student) {
-        if (listOfProjects.contains(project)) {
-           // project.getStudent().add(student); //giving errors
-        } else {
-            System.out.println("Professor " + name + " does not supervise this project.");
-        }
     }
-    /**
-     * Remove students to projects
-     * @param student
-     *
-    public void removeStudent(Project project, Student student) {
-        if (listOfProjects.contains(project)) {
-           // project.getStudent().remove(student); //giving error
-        } else {
-            System.out.println("Professor " + name + " does not supervise this project.");
-        }
-    }
-    /**
-     * View students in projects
-     *
-     *
-    public List<Student> viewStudents(){
-        List<Student> students = new ArrayList<>();
-        for (Project p: listOfProjects){
-            //students.addAll(p.getStudent());
-        }
-        return students;
-
-     }
-**/
-
 }
+
+
+
