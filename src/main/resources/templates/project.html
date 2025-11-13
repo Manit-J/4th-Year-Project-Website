@@ -131,13 +131,18 @@
             background-color: #000080;
             transform: scale(1.05);
         }
+        .group-number {
+         float: right;
+        font-size: 16px;
+        margin-top: 0px;
+        }
     </style>
 </head>
 <body>
 
 <!-- Page Header -->
 <header>
-    <h1>Milestone Project Selection</h1>
+    <h1>Project Selection</h1>
 </header>
 
 <!-- Main Content Container -->
@@ -188,6 +193,8 @@
         <ul class="project-list">
             <!-- Loop through all projects and display them -->
             <li th:each="proj : ${project}" class="project-card">
+                <!-- Group Number (Project ID) -->
+                <div class="group-number" th:text="'Group ' + ${proj.id}"></div>
                 <strong th:text="${proj.name}"></strong>
                 <span th:text="${proj.department}"></span>
                 <span th:text="${proj.status}"></span>
@@ -201,7 +208,7 @@
         </ul>
 
         <!-- Delete Project Form -->
-        <div class="section-title">Delete a Project by ID</div>
+        <div class="section-title">Delete a Project</div>
         <form th:action="@{/project/delete}" method="post">
             <label for="projectId">Project ID:</label>
             <input type="number" id="projectId" name="id" required/>
