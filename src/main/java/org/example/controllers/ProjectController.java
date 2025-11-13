@@ -53,8 +53,7 @@ public class ProjectController {
      **/
 
     @PostMapping("/add")
-    public String addProject(@ModelAttribute("newProject") Project newProject,
-                             @RequestParam(value = "professorId", required = false) Long professorId) {
+    public String addProject(@ModelAttribute("newProject") Project newProject, @RequestParam(value = "professorId", required = false) Long professorId) {
         if (professorId != null) {
             Professor professor = professorRepository.findById(professorId).orElse(null);
             if (professor != null) {
