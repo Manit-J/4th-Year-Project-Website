@@ -23,9 +23,16 @@ public class ProfessorWebController {
     }
 
     @GetMapping
-    public String viewAllProfessors(Model model) {
+    public String viewAllProfessors(Model model, @RequestParam(value = "professorId", required = false) Long professorId) {
         model.addAttribute("professors", professorRepository.findAll());
         model.addAttribute("professor", new Professor()); // for add form
+        if (professorId != null) {
+            professorRepository.findById(professorId).ifPresent(selectedProfessor -> {
+                model.addAttribute("selectedProfessor", selectedProfessor);
+                model.addAttribute("projects", selectedProfessor.getProjects());
+                model.addAttribute("newProject", new Project());
+            });
+        }
         return "professors"; // templates/professors.html
     }
 
@@ -58,9 +65,11 @@ public class ProfessorWebController {
     public String saveProject(@ModelAttribute Project project, @RequestParam("professorId") Long professorId) {
         Professor professor = professorRepository.findById(professorId).orElse(null);
         if (professor != null) {
-            professor.addProject(project);  // helper method sets both sides of the relationship
+            professor.addProject(project);
             professorRepository.save(professor);
         }
         return "redirect:/professors";
     }
+
+
 }

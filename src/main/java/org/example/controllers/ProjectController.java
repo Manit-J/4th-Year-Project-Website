@@ -25,47 +25,48 @@ public class ProjectController {
     }
 
     /***
-    //Display Projects
-    //Handle Get request to /project
-    @GetMapping
-    public String displayProjects(Model model) {
-        //load all projects from the database and add them to the model
-        model.addAttribute("project", projectRepository.findAll());
-        model.addAttribute("newProject", new Project()); // for the form
-        //return project.html view
-        return "project";
-    }***/
+     //Display Projects
+     //Handle Get request to /project
+     @GetMapping public String displayProjects(Model model) {
+     //load all projects from the database and add them to the model
+     model.addAttribute("project", projectRepository.findAll());
+     model.addAttribute("newProject", new Project()); // for the form
+     //return project.html view
+     return "project";
+     }***/
 
     @GetMapping
-    public String displayProjects(Model model, @RequestParam(value="professorId", required=false) Long professorId) {
+    public String displayProjects(Model model, @RequestParam(value = "professorId", required = false) Long professorId) {
         model.addAttribute("project", projectRepository.findAll());
         model.addAttribute("newProject", new Project());
-        model.addAttribute("professorId", professorId);  // add professorId here
+        model.addAttribute("professorId", professorId);
         return "project";
     }
 
     //Add a project
-  /**  @PostMapping("/add")
-    public String addProject(@ModelAttribute("newProject") Project newProject) {
-        projectRepository.save(newProject);
-        return "redirect:/project";
-    }**/
 
-  @PostMapping("/add")
-  public String addProject(@ModelAttribute("newProject") Project newProject,
-                           @RequestParam(value = "professorId", required = false) Long professorId) {
-      if (professorId != null) {
-          Professor professor = professorRepository.findById(professorId).orElse(null);
-          if (professor != null) {
-              professor.addProject(newProject);
-              professorRepository.save(professor);
-          }
-          return "redirect:/project?professorId=" + professorId;
-      } else {
-          projectRepository.save(newProject);
-          return "redirect:/project";
-      }
-  }
+    /**
+     * @PostMapping("/add") public String addProject(@ModelAttribute("newProject") Project newProject) {
+     * projectRepository.save(newProject);
+     * return "redirect:/project";
+     * }
+     **/
+
+    @PostMapping("/add")
+    public String addProject(@ModelAttribute("newProject") Project newProject,
+                             @RequestParam(value = "professorId", required = false) Long professorId) {
+        if (professorId != null) {
+            Professor professor = professorRepository.findById(professorId).orElse(null);
+            if (professor != null) {
+                professor.addProject(newProject);
+                professorRepository.save(professor);
+            }
+            return "redirect:/project?professorId=" + professorId;
+        } else {
+            projectRepository.save(newProject);
+            return "redirect:/project";
+        }
+    }
 
     @PostMapping("/delete/{id}")
     public String deleteProject(@PathVariable Long id) {
@@ -102,5 +103,7 @@ public class ProjectController {
         return "redirect:/professors";
     }
 
-
 }
+
+
+
