@@ -17,14 +17,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.BDDMockito.given;
 
-@WebMvcTest(StudentController.class)
+@WebMvcTest(StudentController.class)// loads the web layer for the student controller without running the whole app
 public class StudentControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc;//
 
     @MockBean
-    private StudentRepository studentRepository;
+    private StudentRepository studentRepository;//replaces spring beans with mock beans
+
 
     @Test
     void shouldDisplayAllStudents() throws Exception {

@@ -19,14 +19,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.BDDMockito.given;
 
-@WebMvcTest(ProjectController.class)
+@WebMvcTest(ProjectController.class)//loads the project web controller (only the web layer) without loading the full app
 public class ProjectControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc;//simulate HTTP requests without starting a real web server
 
     @MockBean
-    private ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;//replaces spring beans with mock beans
 
 
     @Test

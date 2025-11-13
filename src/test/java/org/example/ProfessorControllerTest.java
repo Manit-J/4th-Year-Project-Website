@@ -18,14 +18,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.BDDMockito.given;
 
-@WebMvcTest(ProfessorWebController.class)
+@WebMvcTest(ProfessorWebController.class)//loads the professor web controller (only the web layer) without loading the full app
 public class ProfessorControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc;//simulate HTTP requests without starting a real web server
 
     @MockBean
-    private ProfessorRepository professorRepository;
+    private ProfessorRepository professorRepository;//replaces spring beans with mock beans
 
     @MockBean
     private ProjectRepository projectRepository;
@@ -35,7 +35,7 @@ public class ProfessorControllerTest {
         given(professorRepository.findAll())
                 .willReturn(List.of(new Professor()));
 
-        mockMvc.perform(get("/professors")) // ✅ matches @RequestMapping("/professors")
+        mockMvc.perform(get("/professors"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("professors"))
                 .andExpect(model().attributeExists("professors"))
