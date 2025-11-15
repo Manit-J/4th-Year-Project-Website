@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.example.Project;
 
 @Controller
 @RequestMapping("/professors")
@@ -22,9 +23,16 @@ public class ProfessorWebController {
     }
 
     @GetMapping
-    public String viewAllProfessors(Model model) {
+    public String viewAllProfessors(Model model, @RequestParam(value = "professorId", required = false) Long professorId) {
         model.addAttribute("professors", professorRepository.findAll());
         model.addAttribute("professor", new Professor()); // for add form
+        if (professorId != null) {
+            professorRepository.findById(professorId).ifPresent(selectedProfessor -> {
+                model.addAttribute("selectedProfessor", selectedProfessor);
+                model.addAttribute("projects", selectedProfessor.getProjects());
+                model.addAttribute("newProject", new Project());
+            });
+        }
         return "professors"; // templates/professors.html
     }
 
@@ -39,4 +47,29 @@ public class ProfessorWebController {
         professorRepository.deleteById(id);
         return "redirect:/professors"; // go back to list
     }
+
+    @GetMapping("/new")
+    public String showProjectForm(@RequestParam("professorId") Long professorId, Model model) {
+        Professor professor = professorRepository.findById(professorId).orElse(null);
+        if (professor == null) {
+            return "redirect:/professors";
+        }
+
+        Project project = new Project();
+        model.addAttribute("project", project);
+        model.addAttribute("professor", professor);
+        return "project";
+    }
+
+    @PostMapping("/save")
+    public String saveProject(@ModelAttribute Project project, @RequestParam("professorId") Long professorId) {
+        Professor professor = professorRepository.findById(professorId).orElse(null);
+        if (professor != null) {
+            professor.addProject(project);
+            professorRepository.save(professor);
+        }
+        return "redirect:/professors";
+    }
+
+
 }
