@@ -38,8 +38,8 @@ public class ProjectController {
         return "redirect:/project";
     }
 
-    @PostMapping("/delete/{id}")
-    public String deleteProject(@PathVariable Long id) {
+    @PostMapping("/delete")
+    public String deleteProject(@RequestParam Long id) {
         projectRepository.deleteById(id);
         return "redirect:/project";
     }
