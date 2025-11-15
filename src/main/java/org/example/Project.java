@@ -114,6 +114,23 @@ public class Project {
         this.description = description;
     }
 
+    /**
+     * Adds student to the project.
+     * Checks if the student belongs to the correct department and if there is space in the project.
+     *
+     * @param student The student to be added
+     * @return true if student was added, false otherwise
+     */
+    public boolean addStudent(Student student){
+        if (department.contains(student.getDepartment()) && capacity > 0){
+            students.add(student);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public Project(Long id, String name, int capacity, String description, String department, String status, String requiredSkills, int academicYear, List<Student> students, List<Professor> professor) {
         this.id = id;
         this.name = name;
