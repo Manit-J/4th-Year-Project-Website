@@ -124,6 +124,7 @@ public class Project {
     public boolean addStudent(Student student){
         if (department.contains(student.getDepartment()) && capacity > 0){
             students.add(student);
+            capacity--;
             return true;
         }
         else{
