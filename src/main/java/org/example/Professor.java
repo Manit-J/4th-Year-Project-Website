@@ -17,6 +17,7 @@ public class Professor {
 
     private String name; //professor name
     private String email; //prof's email
+    private boolean coordinator; //is the professor the coordinator
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "project_professor",
             joinColumns = @JoinColumn(name = "professor_id", referencedColumnName = "professor_id"),
@@ -42,6 +43,7 @@ public class Professor {
         name = "";
         professor_id = 0L;
         email = "";
+        coordinator = false;
     }
 
     /***
@@ -90,11 +92,27 @@ public class Professor {
      * */
 
     /***
-     * Get professor's name
+     * Set professor's name
      * @param email
      * */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /***
+     * Set professor as coordinator
+     * @param coordinator
+     * */
+    public void setCoordinator(boolean coordinator){
+        this.coordinator = coordinator;
+    }
+
+    /***
+     * Get if profssor is the coordinator
+     * return boolean
+     * */
+    public boolean isCoordinator(){
+        return coordinator;
     }
 
     @Override
