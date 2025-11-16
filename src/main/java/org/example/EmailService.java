@@ -16,13 +16,13 @@ public class EmailService {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.office365.com");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.host", "smtp.mailtrap.io");
+        props.put("mail.smtp.port", "2525"); // or 587
 
         this.session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
+                return new PasswordAuthentication("c35e4401900abe", "d9e32073a9c6ab");
             }
         });
     }
