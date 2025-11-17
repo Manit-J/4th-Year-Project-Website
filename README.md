@@ -16,7 +16,7 @@ The website can be found here: project-11-sysc-4th-year-project-website-c6g3cjdp
   
 ## Current State of the Project
 
-Currently,the project has foundational components of the system in place. The core entities of **Student**, **Professor**, **Project** and **Coordinator** along with their repositories, have been implemented and integrated with the database. The web layer using Spring Boot and Thymeleaf is also set up, which allows users to perform basic operations such as viewing, adding, and removing professors, students, and projects.
+Currently, the project has foundational components of the system in place. The core entities of **Student**, **Professor**, **Project** and **Coordinator** along with their repositories, have been implemented and integrated with the database. The web layer using Spring Boot and Thymeleaf is also set up, which allows users to perform basic operations such as viewing, adding, and removing professors, students, and projects.
 
 The application supports essential CRUD functionality for these entities through simple, functional web interfaces. The existing HTML templates provide basic data display and input capabilities, though they are minimal in design.
 
