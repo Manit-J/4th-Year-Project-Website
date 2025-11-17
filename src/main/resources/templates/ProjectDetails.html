@@ -60,7 +60,7 @@
 <p><strong>Description:</strong> <span th:text="${project.description}"></span></p>
 <p><strong>Department:</strong> <span th:text="${project.department}"></span></p>
 <p><strong>Status:</strong> <span th:text="${project.status}"></span></p>
-<p><strong>Capacity:</strong> <span th:text="${#lists.size(project.students)} + '/' + ${project.capacity}"></span></p>
+<p><strong>Capacity:</strong> <span th:text="${project.capacity}"></span></p>
 <p><strong>Academic Year:</strong> <span th:text="${project.academicYear}"></span></p>
 <p><strong>Required Skills:</strong> <span th:text="${project.requiredSkills}"></span></p>
 
@@ -80,5 +80,48 @@
 <div th:if="${#lists.size(project.students) >= project.capacity}" class="full-message">
    <p class="full-message">This project is full. Applications are closed.</p>
 </div>
+
+
+<hr/>
+
+<!-- Display error/success messages -->
+<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+<p th:if="${success}" th:text="${success}" style="color:green;"></p>
+
+<!-- Students already in the project -->
+<h3>Students in this Project</h3>
+<ul>
+    <li th:each="s : ${studentsInProject}">
+        <span th:text="${s.studentName}"></span> (<span th:text="${s.studentEmail}"></span>)
+    </li>
+</ul>
+
+<hr/>
+
+<!-- Join Project Form -->
+<h3>Join this Project</h3>
+<form th:action="@{/project/{id}/join(id=${project.id})}" method="post">
+    <label>Full Name:</label>
+    <input type="text" name="studentName" required/><br/>
+    <label>Email:</label>
+    <input type="email" name="studentEmail" required/><br/>
+    <button type="submit">Join Project</button>
+</form>
+
+<hr/>
+
+<!-- Links to coordinator tasks -->
+<h3>Coordinator Actions</h3>
+<a th:href="@{/project/{id}/calendar(id=${project.id})}">
+    <button type="button">Schedule Oral Presentation</button>
+</a>
+<a th:href="@{/project/{id}/availability(id=${project.id})}">
+    <button type="button">Enter Availability</button>
+</a>
+
+<hr/>
+<a th:href="@{/project}">
+    <button type="button">Back to All Projects</button>
+</a>
 </body>
 </html>
