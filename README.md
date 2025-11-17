@@ -13,6 +13,18 @@ The website can be found here: project-11-sysc-4th-year-project-website-c6g3cjdp
 * Raiqah Islam
 * Manit Jawa
 * Zeina Mouhtadi
+
+## Instructions to Run the Project
+1. Clone the repo in IntellJ.
+2. Go to maven in right hand side bar or click on view->tool windows->maven.
+3. Double click on Fourth Year Project Website->lifecycle->clean
+4. Then, double click on install in the same window.
+5. Go to target folder, find app.jar and then run it.
+
+## Alternative Way to Run the Project (Using terminal)
+1. Clone the repo in IntelliJ.
+2. Go to terminal and enter the command `mvn clean install`
+3. Go to target folder, find app.jar and then run it.
   
 ## Current State of the Project
 
