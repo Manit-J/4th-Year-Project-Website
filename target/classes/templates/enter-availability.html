@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Enter Availability</title>
+</head>
+<body>
+<h2 th:text="'Enter Availability for ' + ${project.name}"></h2>
+
+<!-- Display error/success messages -->
+<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+<p th:if="${success}" th:text="${success}" style="color:green;"></p>
+
+<form th:action="@{/project/{id}/availability/save(id=${project.id})}" method="post">
+    <div th:each="participant, iter : ${participants}">
+        <p>
+            <strong th:text="${participant.studentName}"></strong>
+            (<span th:text="${participant.studentEmail}"></span>)
+        </p>
+
+        <label>Available Dates (comma-separated, e.g., 2025-11-20 09:00,2025-11-20 14:00):</label><br/>
+        <input type="text" th:name="${'availability_' + iter.index}"
+               th:value="${#strings.arrayJoin(participant.studentAvailability, ',')}"/><br/><br/>
+    </div>
+    <button type="submit">Save Availability</button>
+</form>
+
+<a th:href="@{/project/{id}(id=${project.id})}">
+    <button type="button">Back to Project Details</button>
+</a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Schedule Oral Presentation</title>
+</head>
+<body>
+<h2 th:text="'Schedule Oral Presentation for ' + ${project.name}"></h2>
+
+<!-- Display success message if present -->
+<p th:if="${success}" th:text="${success}" style="color:green;"></p>
+<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
+<!-- Show the currently scheduled presentation -->
+<p th:if="${scheduledPresentation != null}">
+    <strong>Currently Scheduled:</strong> <span th:text="${scheduledPresentation}"></span>
+</p>
+
+<form th:action="@{/project/{id}/calendar/save(id=${project.id})}" method="post">
+    <label>Date:</label>
+    <input type="date" name="presentationDate" required/><br/><br/>
+
+    <label>Time:</label>
+    <input type="time" name="presentationTime" required/><br/><br/>
+
+    <label>Room:</label>
+    <input type="text" name="room" required/><br/><br/>
+
+    <button type="submit">Save Schedule</button>
+</form>
+
+<hr/>
+
+<a th:href="@{/project/{id}(id=${project.id})}">
+    <button type="button">Back to Project Details</button>
+</a>
+
+</body>
+</html>
