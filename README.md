@@ -16,44 +16,44 @@ The website can be found here: project-11-sysc-4th-year-project-website-c6g3cjdp
   
 ## Current State of the Project
 
-Currently,the project has foundational components of the system in place. The core entities of **Student**, **Professor**, and **Project** along with their repositories, have been implemented and integrated with the database. The web layer using Spring Boot and Thymeleaf is also set up, which allows users to perform basic operations such as viewing, adding, and removing professors, students, and projects.
+Currently,the project has foundational components of the system in place. The core entities of **Student**, **Professor**, **Project** and **Coordinator** along with their repositories, have been implemented and integrated with the database. The web layer using Spring Boot and Thymeleaf is also set up, which allows users to perform basic operations such as viewing, adding, and removing professors, students, and projects.
 
 The application supports essential CRUD functionality for these entities through simple, functional web interfaces. The existing HTML templates provide basic data display and input capabilities, though they are minimal in design.
 
 ## Work Done this Milestone
 
-1. Student was implemented
-   * Student class that has attributes such as name, id, email, and functions such as setting/getting names, id, email, project, etc
-2. Professor was implemented 
-   * Professor class that has attributes such as name, id, and functions to add and view projects, add/remove students from projects
-3. Project was implemented
-   * Project class has attributes that describe the project and functions associated with setting/getting those details
-4. Professor Controllers and Templates implemented 
-   * The ProfessorWebController handles web requests about professors in a Spring Boot app.
-   * It gets professor data from the database and shows it on web pages using Thymeleaf.
-   * It lets users add new professors and delete existing ones through simple web forms and URLs.
-5. Project Controller and Templates implemented
-   * This controller manages web requests related to projects under the /project URL.
-   * It displays all projects, lets users add new projects, delete projects, and view project details.
-   * Data is fetched from the database using ProjectRepository and shown on Thymeleaf pages like project.html and projectDetails.html
-6. Student Controller and Templates implemented
-   * This controller handles requests related to students, like viewing one student by ID or listing all students.
-   * It fetches student data from the StudentRepository and adds it to the model for Thymeleaf views.
-   * Depending on the request, it shows either a detailed student page or a list of all students (student.html).
+1. New Feature - Check for Program Restrictions
+   * An error is displayed when adding a student to a project from a different department
+2. New Feature - Send Reminders to Students
+   * Project coordinator sends reminders to students without a project
+3. Student Template updated
+   * Student template was updated to enhance UI
+4. Professor Template updated
+    * Professor template was updated to look more attractive and to enable better usability with the Boostrap framework.
+5. Coordinator Controller implemented
+   * Coordinator controller enables new functionalities, such as allowing professors to view a list of students without a project
+6. Web controller and Integration Tests
+   * ProjectCrontrollerTest StudentControllerTest, WebMockTest and ProfessorControllerTest were implemented to test each controller
+7. Archived Projects template
+   * archivedprojects HTML template was made to archive projects in relation to updates from the project class, projectController and projectRepository
+8. New Feature - Oral Presentation
+   * A new template displays a calender view for each project showing the date and time scheduled by the project coordinator for the oral presentation
+9. New Feature - Enter Availability
+   * An enter availability is displayed next to each participant and professors for their project
   
 ## Work for next Milestone
-For the next milestone, the team will focus on preparing the alpha release of the system. We will ensure that the app is functional and provides a meaningful experience for users, even if all planned features are not yet implemented. The goal is to have several core features working together smoothly, allowing users to perform useful tasks within the app. 
+For the next milestone, the team will focus on preparing the Final demo of the system. We will ensure that the app is functional and provides a meaningful experience for users. We will also ensure that the overall product is usable and useful. 
 
-Looking ahead, the team plans to enhance the user experience by improving the HTML templates to be more user-friendly and visually appealing. Key upcoming features include:
+Looking ahead, the team plans to enhance the user experience by improving the HTML templates and controllers to be more user-friendly and visually appealing. Key upcoming features include:
 
-- Linking projects with professors and students to better manage relationships between entities.
-- Expanding project attributes and statuses to accurately represent academic projects.
-- Adding more interactive webpages for tasks such as assigning students to projects, viewing supervisors, and tracking student involvement.
-- Introducing search and filtering capabilities to help users find relevant projects or professors efficiently.
+- Fully implementing the coordinator's functionailities to ensure that one professor has coordinator privileges.
+- Allocating oral presentations to rooms based on availability.
+- Enhancing the UI for the student page to make it more aesthetically appealing and functional.
+- Complete any outstanding features.
 
 These enhancements will help ensure that the application supports meaningful workflows, providing a valuable tool for both students and faculty.
 
-Additionally, the README on GitHub will be updated to include a clear and detailed plan for the upcoming sprint, outlining the next steps, priorities, and feature implementations to guide further development.
+Additionally, the README on GitHub will be updated to include a clear and detailed outline the features implemented.
 
 ## Class Diagram
 
