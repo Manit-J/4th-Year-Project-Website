@@ -72,8 +72,6 @@ public class ProjectController {
         return "archivedProjects";
     }
 
-
-
     @GetMapping("/{id}")
     public String viewDetails(@PathVariable Long id, Model model) {
         return projectRepository.findById(id)
