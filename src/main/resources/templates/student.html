@@ -1,27 +1,173 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Student Management</title>
+
     <style>
-        input, button {
-            margin: 5px;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: #0074D9;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* Main Content */
+        .main-container {
+            display: flex;
+            justify-content: flex-start;
+            padding: 40px 60px;
+        }
+
+        .left-column {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 25px 0 20px 0;
+            color: #333;
+        }
+
+        /* Form & Card Styling */
+        form, .student-card {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fefefe;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        form input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        form select{
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+
+        form button {
+            margin-top: 20px;
+            background-color: #0074D9;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background .3s, transform .2s;
+        }
+
+        form button:hover {
+            background-color: #000080;
+            transform: scale(1.05);
+        }
+
+        /* Student List */
+        .student-card {
+            background-color: #f9f9f9;
+        }
+
+        .student-card strong {
+            font-size: 20px;
+            color: #0074D9;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Delete section */
+        #removeStudentForm input {
+            width: 100%;
         }
     </style>
 </head>
+
 <body>
-<h2>Add Student</h2>
-<input type="number" id="studentID" placeholder="Student ID">
-<input type="text" id="studentName" placeholder="Student Name">
-<input type="text" id="studentEmail" placeholder="Student Email">
-<input type="SYSC, CIVE, ELEC, MAAE" id="studentDepartment" placeholder="Student Department">
-<button onclick="addStudent()">Add Student</button>
 
-<h2>Remove Student</h2>
-<input type="number" id="removeID" placeholder="Student ID">
-<button onclick="removeStudent()">Remove Student</button>
+<header>
+    <h1>Student Management</h1>
+</header>
 
-<h3>Current Students</h3>
-<ul id="studentList"></ul>
+<div class="main-container">
+    <div class="left-column">
+
+        <!-- Add Student -->
+        <div class="section-title">Add a New Student</div>
+
+        <form id="addStudentForm">
+            <label>Student ID:</label>
+            <input type="number" id="studentID" required>
+
+            <label>Student Name:</label>
+            <input type="text" id="studentName" required>
+
+            <label>Student Email:</label>
+            <input type="text" id="studentEmail" required>
+
+            <label>Student Department:</label>
+            <select id="studentDepartment" required>
+                <option value=""></option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Electrical Engineering">Electrical Engineering</option>
+                <option value="Architecture Engineering">Architecture Engineering</option>
+                <option value="Civil Engineering">Civil Engineering</option>
+                <option value="Mechanical Engineering">Mechanical Engineering</option>
+                <option value="Aerospace Engineering">Aerospace Engineering</option>
+            </select>
+            <br>
+            <button type="button" onclick="addStudent()">Add Student</button>
+        </form>
+        <!-- Student List -->
+        <div class="section-title">Current Students</div>
+        <ul id="studentList" style="list-style:none; padding:0;"></ul>
+
+        <!-- Remove Student -->
+        <div class="section-title">Remove a Student</div>
+
+        <form id="removeStudentForm">
+            <label>Student ID:</label>
+            <input type="number" id="removeID" required>
+
+            <button type="button" onclick="removeStudent()">Remove Student</button>
+        </form>
+
+    </div>
+</div>
 
 <script>
     const students = [];
@@ -29,9 +175,15 @@
     function renderList() {
         const ul = document.getElementById('studentList');
         ul.innerHTML = '';
+
         students.forEach(s => {
             const li = document.createElement('li');
-            li.textContent = `ID: ${s.id}, Name: ${s.name}, Email: ${s.email}`;
+            li.className = "student-card";
+            li.innerHTML = `
+                <strong>ID: ${s.id}</strong>
+                <div>Email: ${s.email}</div>
+                <div>Department: ${s.department}</div>
+            `;
             ul.appendChild(li);
         });
     }
@@ -40,9 +192,9 @@
         const id = document.getElementById('studentID').value;
         const name = document.getElementById('studentName').value;
         const email = document.getElementById('studentEmail').value;
-        const department = document.getElementById("studentDepartment").value;
-        if (id && name && email && department) {
+        const department = document.getElementById('studentDepartment').value;
 
+        if (id && name && email && department) {
             const student = { id, name, email, department };
 
             fetch("http://localhost:8080/students", {
@@ -60,8 +212,6 @@
                 })
                 .catch(err => console.error(err));
 
-            renderList();
-            // Clear inputs
             document.getElementById('studentID').value = '';
             document.getElementById('studentName').value = '';
             document.getElementById('studentEmail').value = '';
@@ -71,7 +221,9 @@
 
     function removeStudent() {
         const id = document.getElementById('removeID').value;
+
         const index = students.findIndex(s => s.id === id);
+
         if (index !== -1) {
             students.splice(index, 1);
             renderList();
@@ -81,5 +233,6 @@
         }
     }
 </script>
+
 </body>
 </html>
