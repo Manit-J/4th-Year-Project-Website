@@ -18,7 +18,14 @@ import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.BDDMockito.given;
-
+/**
+ * Tests the ProjectController by sending HTTP requests to the project page ("/project")
+ * and verifying the response.
+ * Uses MockMvc to simulate requests without starting a real server.
+ * Checks that the correct view ("project") is returned and that the model contains
+ * the expected attributes: "project" (list of existing projects) and "newProject"
+ * (used for creating a new project).
+ */
 @WebMvcTest(ProjectController.class)//loads the project web controller (only the web layer) without loading the full app
 public class ProjectControllerTest {
 

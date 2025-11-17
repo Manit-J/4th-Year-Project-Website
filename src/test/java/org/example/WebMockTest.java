@@ -12,7 +12,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
+/**
+ * Tests the HomePageController by sending HTTP requests to the home page ("/")
+ * and verifying the response.
+ * Uses MockMvc to simulate requests without starting a real server.
+ * Checks that the correct view ("index") is returned and that the web layer loads properly.
+ */
 @WebMvcTest(HomePageController.class) // only loads web layer for HomePageController
 public class WebMockTest {
 
