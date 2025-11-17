@@ -15,43 +15,28 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/project")
 public class ProjectController {
 
-    @Autowired
     private final ProjectRepository projectRepository;
     private final ProfessorRepository professorRepository;
 
+    @Autowired
     public ProjectController(ProjectRepository projectRepository, ProfessorRepository prepository) {
         this.projectRepository = projectRepository;
         this.professorRepository = prepository;
     }
 
-    /***
-     //Display Projects
-     //Handle Get request to /project
-     @GetMapping public String displayProjects(Model model) {
-     //load all projects from the database and add them to the model
-     model.addAttribute("project", projectRepository.findAll());
-     model.addAttribute("newProject", new Project()); // for the form
-     //return project.html view
-     return "project";
-     }***/
-
+    //Display Projects
+    //Handle Get request to /project
     @GetMapping
     public String displayProjects(Model model, @RequestParam(value = "professorId", required = false) Long professorId) {
+        //load all projects from the database and add them to the model
         model.addAttribute("project", projectRepository.findAll());
-        model.addAttribute("newProject", new Project());
+        model.addAttribute("newProject", new Project()); // for the form
         model.addAttribute("professorId", professorId);
+        //return project.html view
         return "project";
     }
 
     //Add a project
-
-    /**
-     * @PostMapping("/add") public String addProject(@ModelAttribute("newProject") Project newProject) {
-     * projectRepository.save(newProject);
-     * return "redirect:/project";
-     * }
-     **/
-
     @PostMapping("/add")
     public String addProject(@ModelAttribute("newProject") Project newProject, @RequestParam(value = "professorId", required = false) Long professorId) {
         if (professorId != null) {
@@ -67,10 +52,24 @@ public class ProjectController {
         }
     }
 
-    @PostMapping("/delete/{id}")
-    public String deleteProject(@PathVariable Long id) {
+    @PostMapping("/delete")
+    public String deleteProject(@RequestParam Long id) {
         projectRepository.deleteById(id);
         return "redirect:/project";
+    }
+    @PostMapping("/archive/{id}")
+    public String archiveProject(@PathVariable Long id) {
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project != null) {
+            project.setArchived(true);
+            projectRepository.save(project);
+        }
+        return "redirect:/project";
+    }
+    @GetMapping("/archived")
+    public String viewArchived(Model model) {
+        model.addAttribute("project", projectRepository.findByArchivedTrue());
+        return "archivedProjects";
     }
 
     @GetMapping("/{id}")
@@ -103,6 +102,3 @@ public class ProjectController {
     }
 
 }
-
-
-
