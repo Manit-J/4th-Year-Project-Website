@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -36,12 +37,12 @@ public class ProjectTest {
         student.setDepartment("CIVE");
 
         assertFalse(project.addStudent(student));
-        assertEquals(project.getCapacity(), 4);
+        assertEquals((long) project.getCapacity(), (long) 4);
         assertFalse(project.getStudent().contains(student));
 
         student.setDepartment("SYSC");
         assertTrue(project.addStudent(student));
-        assertEquals(project.getCapacity(), 3);
+        assertEquals((long) project.getCapacity(), (long)3);
         assertTrue(project.getStudent().contains(student));
     }
 }
