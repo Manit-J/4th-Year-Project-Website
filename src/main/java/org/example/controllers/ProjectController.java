@@ -1,7 +1,9 @@
 package org.example.controllers;
 
+import org.example.Professor;
 import org.example.Project;
 import org.example.Student;
+import org.example.repositories.ProfessorRepository;
 import org.example.repositories.ProjectRepository;
 import org.example.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,57 +17,99 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 @Controller
+//handles requests for /project
+// RequestMapping maps all HTTP operations
 @RequestMapping("/project")
 public class ProjectController {
 
-    @Autowired
     private final ProjectRepository projectRepository;
-
-    @Autowired
+    private final ProfessorRepository professorRepository;
     private final StudentRepository studentRepository;
-
-
     private final Map<Long, String> scheduledPresentations = new ConcurrentHashMap<>();
 
-    public ProjectController(ProjectRepository projectRepository, StudentRepository studentRepository) {
+    @Autowired
+    public ProjectController(ProjectRepository projectRepository, ProfessorRepository prepository, StudentRepository studentRepository) {
         this.projectRepository = projectRepository;
+        this.professorRepository = prepository;
         this.studentRepository = studentRepository;
     }
 
-
-    // List all projects
-
+    //Display Projects
+    //Handle Get request to /project
     @GetMapping
-    public String displayProjects(Model model,
-                                  @ModelAttribute("error") String error,
+    public String displayProjects(Model model, @RequestParam(value = "professorId", required = false) Long professorId, @ModelAttribute("error") String error,
                                   @ModelAttribute("success") String success) {
+        //load all projects from the database and add them to the model
         model.addAttribute("project", projectRepository.findAll());
-        model.addAttribute("newProject", new Project());
+        model.addAttribute("newProject", new Project()); // for the form
+        model.addAttribute("professorId", professorId);
         model.addAttribute("error", error);
         model.addAttribute("success", success);
-        return "project";  // project.html
+        //return project.html view
+        return "project";
     }
 
-
-    // Add a project
-
+    //Add a project
     @PostMapping("/add")
-    public String addProject(@ModelAttribute("newProject") Project newProject) {
-        projectRepository.save(newProject);
-        return "redirect:/project";
+    public String addProject(@ModelAttribute("newProject") Project newProject, @RequestParam(value = "professorId", required = false) Long professorId) {
+        if (professorId != null) {
+            Professor professor = professorRepository.findById(professorId).orElse(null);
+            if (professor != null) {
+                professor.addProject(newProject);
+                professorRepository.save(professor);
+            }
+            return "redirect:/project?professorId=" + professorId;
+        } else {
+            projectRepository.save(newProject);
+            return "redirect:/project";
+        }
     }
 
-
-    // Delete a project
-
-    @PostMapping("/delete/{id}")
-    public String deleteProject(@PathVariable Long id) {
+    @PostMapping("/delete")
+    public String deleteProject(@RequestParam Long id) {
         projectRepository.deleteById(id);
         return "redirect:/project";
     }
+    @PostMapping("/archive/{id}")
+    public String archiveProject(@PathVariable Long id) {
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project != null) {
+            project.setArchived(true);
+            projectRepository.save(project);
+        }
+        return "redirect:/project";
+    }
+    @GetMapping("/archived")
+    public String viewArchived(Model model) {
+        model.addAttribute("project", projectRepository.findByArchivedTrue());
+        return "archivedProjects";
+    }
 
+    @GetMapping("/apply/{id}")
+    public String viewApplyForm(@PathVariable Long id, Model model) {
+        Project project = projectRepository.findById(id).orElse(null);
+        //If project doesn't exist or capacity is full user will be redirected to the project page
+        if (project == null || project.getStudent().size() >= project.getCapacity()) {
+            return "redirect:/project";
+        }
+        model.addAttribute("project", project);
+        model.addAttribute("student", new Student());
+        //return ApplyForm.html
+        return "applyForm";
+    }
 
-    // View project details
+    @PostMapping("/apply/{id}")
+    public String applyToProject(@PathVariable Long id, @ModelAttribute Student student) {
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project != null && project.getStudent().size() < project.getCapacity()) {
+            //link student to the project
+            student.setProject(project);
+            //Add student to the project's student list
+            project.getStudent().add(student);
+            projectRepository.save(project);
+        }
+        return "redirect:/project";
+    }
 
     @GetMapping("/{id}")
     public String viewDetails(@PathVariable Long id, Model model,
@@ -89,6 +133,24 @@ public class ProjectController {
                 .orElse("redirect:/project");
     }
 
+    @GetMapping("/new")
+    public String showProjectForm(@RequestParam("professorId") Long professorId, Model model) {
+        Project project = new Project();
+        model.addAttribute("newProject", project);
+        model.addAttribute("professorId", professorId);
+        return "project";
+    }
+
+
+    @PostMapping("/save")
+    public String saveProject(@ModelAttribute("newProject") Project project, @RequestParam("professorId") Long professorId) {
+        Professor professor = professorRepository.findById(professorId).orElse(null);
+        if (professor != null) {
+            project.getProfessor().add(professor);
+            projectRepository.save(project);
+        }
+        return "redirect:/professors";
+    }
 
     // Student joins a project
 
