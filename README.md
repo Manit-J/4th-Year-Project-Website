@@ -42,11 +42,11 @@ The application supports essential CRUD functionality for these entities through
 9. New Feature - Enter Availability
    * An enter availability is displayed next to each participant and professors for their project
 10. New Feature - Applying for Projects
-   * Anyone is able to apply for a project and ebter the details of the student that they wish to add to the project.
+     * Anyone is able to apply for a project and ebter the details of the student that they wish to add to the project.
 11. Project Template updated
-   * Project template was updated to enhance UI
+     * Project template was updated to enhance UI
 12. Make the Landing Page
-   * Landing page lists links to professors, students and projects
+     * Landing page lists links to professors, students and projects
   
 ## Work for next Milestone
 For the next milestone, the team will focus on preparing the Final demo of the system. We will ensure that the app is functional and provides a meaningful experience for users. We will also ensure that the overall product is usable and useful. 
