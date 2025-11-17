@@ -20,6 +20,9 @@
         <a th:href="@{/project/delete/{id}(id=${proj.id})}">
             <button type="button">Remove</button>
         </a>
+        <form th:action="@{/project/archive/{id}(id=${proj.id})}" method="post" style="display:inline">
+            <button type="submit">Archive</button>
+        </form>
     </li>
 </ul>
 
