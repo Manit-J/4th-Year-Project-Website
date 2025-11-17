@@ -1,9 +1,11 @@
 package org.example;
 
 import jakarta.persistence.*;
+import org.apache.tomcat.util.bcel.Const;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * org.example.Student class represents a student in the 4th Year Project Management System
@@ -17,8 +19,8 @@ public class Student {
 
     private String studentName; // The student's first and last name
     private String studentEmail;  // The student's email
-
-    private boolean reportSubmitted; //
+    private boolean reportSubmitted;
+    private String department; // The student's department
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -38,6 +40,7 @@ public class Student {
         studentEmail = "";
         reportSubmitted = false;
         studentAvailability = new ArrayList<String>();
+        department = "";
     }
 
     /**
@@ -53,6 +56,7 @@ public class Student {
         studentEmail = email;
         reportSubmitted = false;
         studentAvailability = new ArrayList<String>();
+        department = "";
     }
 
     /**
@@ -160,7 +164,25 @@ public class Student {
      * @param project the project to set
      */
     public void setProject(Project project) {
-        this.project = project;
+        if (project.addStudent(this)){
+            this.project = project;
+        }
+    }
+
+    /**
+     * Gets the department of the student.
+     *
+     * @return the student's department
+     */
+    public String getDepartment() {
+        return department;
+    }
+
+    /**
+     * Sets the department of the student.
+     */
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     /**
@@ -188,7 +210,8 @@ public class Student {
                 reportSubmitted == student.reportSubmitted &&
                 java.util.Objects.equals(studentName, student.studentName) &&
                 java.util.Objects.equals(studentEmail, student.studentEmail) &&
-                java.util.Objects.equals(studentAvailability, student.studentAvailability);
+                java.util.Objects.equals(studentAvailability, student.studentAvailability) &&
+                java.util.Objects.equals(department, student.department);
     }
 
 }

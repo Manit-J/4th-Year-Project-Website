@@ -115,6 +115,24 @@ public class Project {
         this.description = description;
     }
 
+    /**
+     * Adds student to the project.
+     * Checks if the student belongs to the correct department and if there is space in the project.
+     *
+     * @param student The student to be added
+     * @return true if student was added, false otherwise
+     */
+    public boolean addStudent(Student student){
+        if (department.contains(student.getDepartment()) && capacity > 0){
+            students.add(student);
+            capacity--;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public boolean isArchived() {
         return archived;
     }

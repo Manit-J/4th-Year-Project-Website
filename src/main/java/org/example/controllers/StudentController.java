@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class StudentController {
         }
 
         model.addAttribute("student", student);
-        return "addressBookView"; // the Thymeleaf template name
+        return "student"; // the Thymeleaf template name
     }
 
     @GetMapping("/student")
@@ -33,6 +35,11 @@ public class StudentController {
         List<Student> allStudents = studentRepository.findAll();
         model.addAttribute("students", allStudents);
         return "student";
+    }
+
+    @PostMapping("/student")
+    public Student addStudent(@RequestBody Student student) {
+        return studentRepository.save(student);
     }
 
 }
