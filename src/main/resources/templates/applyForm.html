@@ -27,6 +27,7 @@
         /* Input field styling */
         input {
             width: 100%;
+            max-width: 400px;
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
@@ -55,16 +56,25 @@
 <h2 th:text="'Apply to ' + ${project.name}"></h2>
 <!-- Student application form -->
 <form th:action="@{/project/apply/{id}(id=${project.id})}" th:object="${student}" method="post">
-<label>Name:</label>
-<input type="text" th:field="*{studentName}" required/>
+    <div>
+        <label>Name:</label>
+        <input type="text" th:field="*{studentName}" required/>
+    </div>
 
-<label>Email:</label>
-<input type="email" th:field="*{studentEmail}" required/>
+    <div>
+        <label>Email:</label>
+        <input type="email" th:field="*{studentEmail}" required/>
+    </div>
 
-<label>ID:</label>
-<input type="text" th:field="*{studentID}" required/>
+    <div>
+        <label>ID:</label>
+        <input type="text" th:field="*{studentID}" required/>
+    </div>
 
-<button type="submit">Submit Application</button>
+    <div>
+        <button type="submit">Submit Application</button>
+    </div>
 </form>
+
 </body>
 </html>
