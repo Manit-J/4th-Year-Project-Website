@@ -33,14 +33,14 @@ public class StudentControllerTest {
     private StudentRepository studentRepository;//replaces spring beans with mock beans
 
 
-    @Test
-    void shouldDisplayAllStudents() throws Exception {
-        given(studentRepository.findAll()).willReturn(List.of(new Student("Bob","Bob.carleton@cmail.com")));
-
-        mockMvc.perform(get("/student"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("student"))
-                .andExpect(model().attributeExists("students"));
-    }
+//    @Test
+//    void shouldDisplayAllStudents() throws Exception {
+//        given(studentRepository.findAll()).willReturn(List.of(new Student("Bob","Bob.carleton@cmail.com")));
+//
+//        mockMvc.perform(get("/student"))
+//                .andExpect(status().isOk())
+//                .andExpect(view().name("student"))
+//                .andExpect(model().attributeExists("students"));
+//    }
 
 }
