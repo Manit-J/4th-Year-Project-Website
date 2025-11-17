@@ -29,7 +29,8 @@ The application supports essential CRUD functionality for these entities through
 3. Student Template updated
    * Student template was updated to enhance UI
 4. Professor Template updated
-    * Professor template was updated to look more attractive and to enable better usability with the Boostrap framework.
+   * Professor template was updated to look more attractive and to enable better usability with the Boostrap framework.
+   * Projects can be added directly from profesor page to view their projects in a table
 5. Coordinator Controller implemented
    * Coordinator controller enables new functionalities, such as allowing professors to view a list of students without a project
 6. Web controller and Integration Tests
@@ -40,6 +41,12 @@ The application supports essential CRUD functionality for these entities through
    * A new template displays a calender view for each project showing the date and time scheduled by the project coordinator for the oral presentation
 9. New Feature - Enter Availability
    * An enter availability is displayed next to each participant and professors for their project
+10. New Feature - Applying for Projects
+   * Anyone is able to apply for a project and ebter the details of the student that they wish to add to the project.
+11. Project Template updated
+   * Project template was updated to enhance UI
+12. Make the Landing Page
+   * Landing page lists links to professors, students and projects
   
 ## Work for next Milestone
 For the next milestone, the team will focus on preparing the Final demo of the system. We will ensure that the app is functional and provides a meaningful experience for users. We will also ensure that the overall product is usable and useful. 
@@ -57,7 +64,7 @@ Additionally, the README on GitHub will be updated to include a clear and detail
 
 ## Class Diagram
 
-<img width="2716" height="4340" alt="uml diagram" src="https://github.com/user-attachments/assets/ee9564f0-d515-41c6-b4ed-cba437ea69cc" />
+<img width="1170" height="769" alt="image" src="https://github.com/user-attachments/assets/62db8412-cc29-473a-aeeb-0febebea4faa" />
 
 ## Database Schema
 
