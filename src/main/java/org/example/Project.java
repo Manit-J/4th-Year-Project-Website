@@ -140,6 +140,13 @@ public class Project {
         this.archived = archived;
     }
 
+    public void addProfessor(Professor professor) {
+        if (!this.professor.contains(professor)) {
+            this.professor.add(professor);
+            professor.getProjects().add(this);
+        }
+    }
+
     public Project(Long id, String name, int capacity, String description, String department, String status, String requiredSkills, int academicYear, List<Student> students, List<Professor> professor) {
         this.id = id;
         this.name = name;
@@ -154,7 +161,10 @@ public class Project {
     }
 
     //Default constructor to be used by JPA
-    public Project() {}
+    public Project() {
+        this.professor = new ArrayList<>();
+        this.students = new ArrayList<>();
+    }
 
 }
 
