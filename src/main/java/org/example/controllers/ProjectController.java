@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/project")
 public class ProjectController {
 
-    @Autowired
     private final ProjectRepository projectRepository;
 
+    @Autowired
     public ProjectController(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
@@ -43,6 +43,22 @@ public class ProjectController {
         projectRepository.deleteById(id);
         return "redirect:/project";
     }
+    @PostMapping("/archive/{id}")
+    public String archiveProject(@PathVariable Long id) {
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project != null) {
+            project.setArchived(true);
+            projectRepository.save(project);
+        }
+        return "redirect:/project";
+    }
+    @GetMapping("/archived")
+    public String viewArchived(Model model) {
+        model.addAttribute("project", projectRepository.findByArchivedTrue());
+        return "archivedProjects";
+    }
+
+
 
     @GetMapping("/{id}")
     public String viewDetails(@PathVariable Long id, Model model) {

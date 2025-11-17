@@ -19,6 +19,7 @@ public class Project {
     private String status; // Project Availability(e.g.,Available, Full, Completed...)
     private int academicYear;
     private String requiredSkills;
+    private boolean archived = false;
 
     /**
      * One Project can have many students
@@ -112,6 +113,13 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 
     public Project(Long id, String name, int capacity, String description, String department, String status, String requiredSkills, int academicYear, List<Student> students, List<Professor> professor) {
