@@ -3,6 +3,7 @@ package org.example;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,6 +118,16 @@ public class StudentTest {
         assertEquals(student.getProject(), project);
     }
 
+    /**
+     * Tests email reminders.
+     */
+    @Test
+    public void testSendReminder() throws MessagingException {
+        Student s = new Student();
+        s.setStudentName("Manit");
+        s.setStudentEmail("manitjawa@cmail.carleton.ca");
+        s.sendReminder();
+    }
     /**
      * Tests that toString() correctly combines the
      * student's name and email in the expected format.

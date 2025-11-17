@@ -3,6 +3,7 @@ package org.example;
 import jakarta.persistence.*;
 import org.apache.tomcat.util.bcel.Const;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -183,6 +184,17 @@ public class Student {
      */
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public void sendReminder() throws MessagingException {
+        EmailService emailService = new EmailService();
+
+        emailService.sendEmail(
+                studentEmail,
+                "Project Registration Reminder",
+                "Dear Student,\nPlease register in one of the projects available on the Capstone Project website ASAP.\n" +
+                        "Please let me know if you have questions.\n" +
+                        "Project Coordinator");
     }
 
     /**
