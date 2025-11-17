@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Milestone Project Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            padding: 20px;
+             margin-bottom: 44px;
+            text-align: center;
+        }
+        header h1 {
+            color: #0074D9; /* bright blue */
+            font-size: 40px;
+            margin: 0;
+            font-weight: bold;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 50px;
+            margin-top: 60px;
+        }
+
+        .image-section img {
+            max-width: 600px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+         .btn-group {
+            display: flex;
+            flex-direction: column;
+            margin-top: 100px;
+            gap: 20px;              /* spacing between buttons */
+            width: 300px;           /* consistent width */
+        }
+
+        .btn-group button {
+            background-color: #0074D9; /* blue buttons */
+            border: none;
+            color: white;
+            padding: 20px;           /* bigger size */
+            font-size: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            width: 100%;             /* full width of group */
+        }
+
+        .btn-group button:hover {
+            background-color: #000080; /* navy hover */
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+<header>
+<h1>Milestone Project Portal</h1>
+</header>
+<div class="container">
+    <div class="image-section">
+        <img src="/images/project_image.jpeg" alt="Project">
+    </div>
+<div class="btn-group">
+    <a th:href="@{/professors}">
+        <button type="button">Professor Page</button>
+    </a>
+    <a th:href="@{/project}">
+        <button type="button">Project Page</button>
+    </a>
+    <a th:href="@{/student}">
+        <button type="button">Student Page</button>
+    </a>
+</div>
+</div>
+</body>
+</html>
