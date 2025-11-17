@@ -13,12 +13,13 @@ public class Project {
     private Long id;
 
     private String name; //Project name/title
-    private int capacity; //Maximum number of students that can join
+    private Integer capacity; //Maximum number of students that can join
     private String description; //short description of the project
     private String department; //e.g.,Software, Electrical, Mechanical...
     private String status; // Project Availability(e.g.,Available, Full, Completed...)
-    private int academicYear;
+    private Integer academicYear;
     private String requiredSkills;
+    private boolean archived = false;
 
     /**
      * One Project can have many students
@@ -50,7 +51,7 @@ public class Project {
         this.name = name;
     }
 
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
@@ -74,7 +75,7 @@ public class Project {
         this.students = students;
     }
 
-    public int getAcademicYear() {
+    public Integer getAcademicYear() {
         return academicYear;
     }
 
@@ -119,6 +120,31 @@ public class Project {
             this.professor.add(professor);
             professor.getProjects().add(this);
         }
+    }
+
+    /**
+     * Adds student to the project.
+     * Checks if the student belongs to the correct department and if there is space in the project.
+     *
+     * @param student The student to be added
+     * @return true if student was added, false otherwise
+     */
+    public boolean addStudent(Student student){
+        if (department.contains(student.getDepartment()) && capacity > 0){
+            students.add(student);
+            capacity--;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public boolean isArchived() {
+        return archived;
+    }
+    public void setArchived(boolean archived) {
+        this.archived = archived;
     }
 
     public Project(Long id, String name, int capacity, String description, String department, String status, String requiredSkills, int academicYear, List<Student> students, List<Professor> professor) {
