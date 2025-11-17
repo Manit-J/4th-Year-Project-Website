@@ -82,7 +82,6 @@
             border-radius: 6px;
             cursor: pointer;
             margin-right: 10px;
-            transition: background 0.3s, transform 0.2s;
         }
 
         .actions button:hover {
@@ -151,6 +150,7 @@
         <!-- Add Project Form -->
         <div class="section-title">Add a New Project</div>
         <form th:action="@{/project/add}" th:object="${newProject}" method="post">
+            <input type="hidden" name="professorId" th:value="${professorId}" />
             <label>Name:</label>
             <input type="text" th:field="*{name}" required/>
 

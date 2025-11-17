@@ -1,5 +1,6 @@
 org\example\StudentControllerTest.class
 org\example\WebMockTest.class
 org\example\ProjectControllerTest.class
+org\example\ProjectTest.class
 org\example\ProfessorControllerTest.class
 org\example\StudentTest.class
