@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Archived Projects</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" /> <!-- optional -->
+</head>
+<body>
+<h1>Archived Projects</h1>
+
+<a href="/project">Back to Active Projects</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Academic Year</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop over archived projects -->
+    <tr th:each="project : ${project}">
+        <td th:text="${project.id}"></td>
+        <td th:text="${project.name}"></td>
+        <td th:text="${project.department}"></td>
+        <td th:text="${project.academicYear}"></td>
+        <td th:text="${project.status}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
