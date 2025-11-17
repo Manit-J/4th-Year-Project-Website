@@ -13,18 +13,18 @@ public class Project {
     private Long id;
 
     private String name; //Project name/title
-    private int capacity; //Maximum number of students that can join
+    private Integer capacity; //Maximum number of students that can join
     private String description; //short description of the project
     private String department; //e.g.,Software, Electrical, Mechanical...
     private String status; // Project Availability(e.g.,Available, Full, Completed...)
-    private int academicYear;
+    private Integer academicYear;
     private String requiredSkills;
     private boolean archived = false;
 
     /**
      * One Project can have many students
-     * CascadeType.ALL means all operations (persist...) apply to related students
-     * FetchType.EAGER loads students whenever the project is loaded
+     * CascadeType.aLL means all operations (persist...) apply to related students
+     * FetchType.eAGER loads students whenever the project is loaded
      */
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "project")
@@ -51,7 +51,7 @@ public class Project {
         this.name = name;
     }
 
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
@@ -75,7 +75,7 @@ public class Project {
         this.students = students;
     }
 
-    public int getAcademicYear() {
+    public Integer getAcademicYear() {
         return academicYear;
     }
 
