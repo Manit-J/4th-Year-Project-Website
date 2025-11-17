@@ -13,6 +13,7 @@
 <input type="number" id="studentID" placeholder="Student ID">
 <input type="text" id="studentName" placeholder="Student Name">
 <input type="text" id="studentEmail" placeholder="Student Email">
+<input type="SYSC, CIVE, ELEC, MAAE" id="studentDepartment" placeholder="Student Department">
 <button onclick="addStudent()">Add Student</button>
 
 <h2>Remove Student</h2>
@@ -39,13 +40,32 @@
         const id = document.getElementById('studentID').value;
         const name = document.getElementById('studentName').value;
         const email = document.getElementById('studentEmail').value;
-        if (id && name && email) {
-            students.push({id, name, email});
+        const department = document.getElementById("studentDepartment").value;
+        if (id && name && email && department) {
+
+            const student = { id, name, email, department };
+
+            fetch("http://localhost:8080/students", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(student)
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to save student");
+                    return response.json();
+                })
+                .then(savedStudent => {
+                    students.push(savedStudent);
+                    renderList();
+                })
+                .catch(err => console.error(err));
+
             renderList();
             // Clear inputs
             document.getElementById('studentID').value = '';
             document.getElementById('studentName').value = '';
             document.getElementById('studentEmail').value = '';
+            document.getElementById('studentDepartment').value = '';
         }
     }
 
