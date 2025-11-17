@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import org.example.Project;
+import org.example.Student;
 import org.example.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,7 +59,31 @@ public class ProjectController {
         return "archivedProjects";
     }
 
+    @GetMapping("/apply/{id}")
+    public String viewApplyForm(@PathVariable Long id, Model model) {
+        Project project = projectRepository.findById(id).orElse(null);
+        //If project doesn't exist or capacity is full user will be redirected to the project page
+        if (project == null || project.getStudent().size() >= project.getCapacity()) {
+            return "redirect:/project";
+        }
+        model.addAttribute("project", project);
+        model.addAttribute("student", new Student());
+        //return ApplyForm.html
+        return "applyForm";
+    }
 
+    @PostMapping("/apply/{id}")
+    public String applyToProject(@PathVariable Long id, @ModelAttribute Student student) {
+        Project project = projectRepository.findById(id).orElse(null);
+        if (project != null && project.getStudent().size() < project.getCapacity()) {
+            //link student to the project
+            student.setProject(project);
+            //Add student to the project's student list
+            project.getStudent().add(student);
+            projectRepository.save(project);
+        }
+        return "redirect:/project";
+    }
 
     @GetMapping("/{id}")
     public String viewDetails(@PathVariable Long id, Model model) {
