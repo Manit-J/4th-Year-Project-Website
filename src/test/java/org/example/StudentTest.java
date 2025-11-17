@@ -107,10 +107,15 @@ public class StudentTest {
     @Test
     public void testProjectGetterSetter() {
         project = new Project();
-        project.setName("Test Project");
+        project.setDepartment("SYSC, CIVE, ELEC");
+        project.setCapacity(5);
 
+        student.setStudentID(898138024);
+        student.setStudentName("Harry Potter");
+        student.setDepartment("CIVE");
         student.setProject(project);
-        assertEquals("Test Project", student.getProject().getName());
+
+        assertEquals(student.getProject(), project);
     }
 
     /**
