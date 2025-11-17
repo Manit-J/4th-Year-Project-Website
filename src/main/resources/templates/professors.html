@@ -26,6 +26,12 @@
             <input type="text" class="form-control" id="email" th:field="*{email}" placeholder="Enter professor Email" required/>
         </div>
         <div class="col-auto">
+            <label>
+                <input type="checkbox" th:field="*{coordinator}">
+                Coordinator
+            </label>
+        </div>
+        <div class="col-auto">
             <button type="submit" class="btn btn-primary">Add Professor</button>
         </div>
     </div>
@@ -40,18 +46,28 @@
         <th>ID</th>
         <th>Name</th>
         <th>Email</th>
+        <th>Coordinator</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="professor : ${professors}">
         <td th:text="${professor.id}"></td>
+
         <td th:text="${professor.name}"></td>
         <td th:text="${professor.email}"></td>
+        <td th:text="${professor.coordinator ? 'Yes' : 'No'}"></td>
         <td>
             <a th:href="@{'/professors/delete/' + ${professor.id}}" class="btn btn-sm btn-danger me-2">Remove</a>
             <a th:href="@{/project/new(professorId=${professor.id})}" class="btn btn-sm btn-success me-2">Add Project</a>
             <a th:href="@{/professors(professorId=${professor.id})}" class="btn btn-sm btn-info">View Projects</a>
+        <td>
+            <a th:if="${professor.coordinator}"
+               th:href="@{/coordinator/students-without-project}"
+               class="btn btn-sm btn-warning ms-2">
+                View Students Without Project
+            </a>
+        </td>
         </td>
     </tr>
     </tbody>
