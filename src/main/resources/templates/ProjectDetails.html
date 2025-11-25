@@ -98,30 +98,18 @@
 
 <hr/>
 
-<!-- Join Project Form -->
-<h3>Join this Project</h3>
-<form th:action="@{/project/{id}/join(id=${project.id})}" method="post">
-    <label>Full Name:</label>
-    <input type="text" name="studentName" required/><br/>
-    <label>Email:</label>
-    <input type="email" name="studentEmail" required/><br/>
-    <button type="submit">Join Project</button>
-</form>
-
-<hr/>
-
 <!-- Links to coordinator tasks -->
 <h3>Coordinator Actions</h3>
-<a th:href="@{/project/{id}/calendar(id=${project.id})}">
-    <button type="button">Schedule Oral Presentation</button>
-</a>
-<a th:href="@{/project/{id}/availability(id=${project.id})}">
-    <button type="button">Enter Availability</button>
-</a>
+<div class="button-row">
+    <a th:href="@{/project/{id}/calendar(id=${project.id})}">
+        <button type="button" class="button">Schedule Oral Presentation</button>
+    </a>
+    <a th:href="@{/project/{id}/availability(id=${project.id})}">
+        <button type="button" class="button">Enter Availability</button>
+    </a>
+</div>
+
 
 <hr/>
-<a th:href="@{/project}">
-    <button type="button">Back to All Projects</button>
-</a>
 </body>
 </html>

@@ -13,6 +13,18 @@ The website can be found here: project-11-sysc-4th-year-project-website-c6g3cjdp
 * Raiqah Islam
 * Manit Jawa
 * Zeina Mouhtadi
+
+## Instructions to Run the Project
+1. Clone the repo in IntellJ.
+2. Go to maven in right hand side bar or click on view->tool windows->maven.
+3. Double click on Fourth Year Project Website->lifecycle->clean
+4. Then, double click on install in the same window.
+5. Go to target folder, find app.jar and then run it.
+
+## Alternative Way to Run the Project (Using terminal)
+1. Clone the repo in IntelliJ.
+2. Go to terminal and enter the command `mvn clean install`
+3. Go to target folder, find app.jar and then run it.
   
 ## Current State of the Project
 
@@ -29,35 +41,43 @@ The application supports essential CRUD functionality for these entities through
 3. Student Template updated
    * Student template was updated to enhance UI
 4. Professor Template updated
-    * Professor template was updated to look more attractive and to enable better usability with the Boostrap framework.
+   * Professor template was updated to look more attractive and to enable better usability with the Bootstrap framework.
+   * Projects can be added directly from professor's page to view their projects in a table
 5. Coordinator Controller implemented
-   * Coordinator controller enables new functionalities, such as allowing professors to view a list of students without a project
+   * The coordinator controller enables new functionalities, such as allowing professors to view a list of students without a project
 6. Web controller and Integration Tests
-   * ProjectCrontrollerTest StudentControllerTest, WebMockTest and ProfessorControllerTest were implemented to test each controller
+   * ProjectCrontrollerTest, StudentControllerTest, WebMockTest, and ProfessorControllerTest were implemented to test each controller
 7. Archived Projects template
    * archivedprojects HTML template was made to archive projects in relation to updates from the project class, projectController and projectRepository
 8. New Feature - Oral Presentation
-   * A new template displays a calender view for each project showing the date and time scheduled by the project coordinator for the oral presentation
+   * A new template displays a calendar view for each project showing the date and time scheduled by the project coordinator for the oral presentation
 9. New Feature - Enter Availability
-   * An enter availability is displayed next to each participant and professors for their project
+   * An enter availability is displayed next to each participant and professor for their project
+10. New Feature - Applying for Projects
+     * Anyone can apply for a project and enter the details of the student that they wish to add to the project.
+     * If Project Capacity is full, the Apply button won't be visible, and an error message will be displayed
+11. Project Template updated
+     * Project template was updated to enhance UI
+12. Update the Landing Page template
+     * Landing page lists links to professors, students, and projects, and was updated to enhance UI
   
 ## Work for next Milestone
 For the next milestone, the team will focus on preparing the Final demo of the system. We will ensure that the app is functional and provides a meaningful experience for users. We will also ensure that the overall product is usable and useful. 
 
 Looking ahead, the team plans to enhance the user experience by improving the HTML templates and controllers to be more user-friendly and visually appealing. Key upcoming features include:
 
-- Fully implementing the coordinator's functionailities to ensure that one professor has coordinator privileges.
+- Fully implementing the coordinator's functionalities to ensure that one professor has coordinator privileges.
 - Allocating oral presentations to rooms based on availability.
 - Enhancing the UI for the student page to make it more aesthetically appealing and functional.
 - Complete any outstanding features.
 
 These enhancements will help ensure that the application supports meaningful workflows, providing a valuable tool for both students and faculty.
 
-Additionally, the README on GitHub will be updated to include a clear and detailed outline the features implemented.
+Additionally, the README on GitHub will be updated to include a clear and detailed outline of the features implemented.
 
 ## Class Diagram
 
-<img width="2716" height="4340" alt="uml diagram" src="https://github.com/user-attachments/assets/ee9564f0-d515-41c6-b4ed-cba437ea69cc" />
+<img width="1170" height="769" alt="image" src="https://github.com/user-attachments/assets/62db8412-cc29-473a-aeeb-0febebea4faa" />
 
 ## Database Schema
 
