@@ -101,12 +101,12 @@
 <!-- Student Report Upload Section -->
 <div>
   <h3>Submit Your Project Report</h3>
-  <form th:action="@{/project/{projectId}/uploadReport(projectId=${project.id})}"
+  <form th:action="@{/project/{id}/uploadReport(id=${project.id})}"
         method="post"
         enctype="multipart/form-data">
 
     <label for="studentId"><strong>Student ID:</strong></label>
-    <input type="text" id="studentId" name="studentId" required pattern="\d+" />
+    <input type="number" id="studentId" name="studentId" required pattern="\d+" />
 
     <label for="file"><strong>Select PDF Report:</strong></label>
     <input type="file" id="file" name="file" accept="application/pdf" required /><br><br>

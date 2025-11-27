@@ -198,8 +198,8 @@ public class ProjectController {
         return "redirect:/project/" + id;
     }
 
-    @PostMapping("/project/{projectId}/uploadReport")
-    public String uploadReport(@PathVariable Long projectId,
+    @PostMapping("/{id}/uploadReport")
+    public String uploadReport(@PathVariable Long id,
                                @RequestParam("studentId") Long studentId,
                                @RequestParam("file") MultipartFile file,
                                RedirectAttributes redirectAttributes) {
@@ -207,22 +207,22 @@ public class ProjectController {
         try {
             // Get the student
             Student student = studentRepository.findById(studentId).orElse(null);
-            if (student == null || student.getProject() == null || !student.getProject().getId().equals(projectId)) {
+            if (student == null || student.getProject() == null || !student.getProject().getId().equals(id)) {
                 redirectAttributes.addFlashAttribute("error", "You are not enrolled in this project.");
-                return "redirect:/project/" + projectId;
+                return "redirect:/project/" + id;
             }
 
             // Check deadline
             LocalDate deadline = student.getProject().getDeadline();
             if (deadline != null && LocalDate.now().isAfter(deadline)) {
                 redirectAttributes.addFlashAttribute("error", "Cannot upload: the deadline has passed!");
-                return "redirect:/project/" + projectId;
+                return "redirect:/project/" + id;
             }
 
             // Validate PDF
             if (!file.getContentType().equals("application/pdf")) {
                 redirectAttributes.addFlashAttribute("error", "Only PDF files are allowed!");
-                return "redirect:/project/" + projectId;
+                return "redirect:/project/" + id;
             }
 
 
@@ -242,7 +242,7 @@ public class ProjectController {
             redirectAttributes.addFlashAttribute("error", "Error uploading file: " + e.getMessage());
         }
 
-        return "redirect:/project/" + projectId;
+        return "redirect:/project/" + id;
     }
 
 
