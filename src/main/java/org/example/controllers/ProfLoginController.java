@@ -14,29 +14,25 @@ public class ProfLoginController {
     @Autowired
     ProfService profService;
 
-    // Show the login page
+    //show the login page
     @GetMapping
     public String showLoginPage() {
         return "profLogin";
     }
 
-    // Handle login
+    //handle login
     @PostMapping("/login")
-    public String login(
-            @RequestParam String username,
-            @RequestParam String password,
-            HttpSession session,
-            Model model
-    ) {
+    public String login(@RequestParam String username, @RequestParam String password, HttpSession session, Model model) {
         if (profService.authenticate(username, password)) {
 
-            // store login in session
+            //store login in session
             session.setAttribute("profLoggedIn", true);
 
+            //if login success go to professors page
             return "redirect:/professors";
         }
 
         model.addAttribute("error", "Invalid username or password");
-        return "profLogin";
+        return "profLogin"; //stay on login page if username/password incorrect
     }
 }
