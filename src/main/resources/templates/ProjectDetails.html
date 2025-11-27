@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Project Details</title>
-    <style>
-        /*Basic Page styling*/
-        body {
-            font-family: Arial, sans-serif;
-            background-color: white;
-            padding: 40px;
-        }
-        /* Project name styling: bold and blue */
-        h2 {
-            color: #0074D9;
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        /* Paragraph styling for project details */
-        p {
-            font-size: 16px;
-            margin: 8px 0;
-        }
+  <title>Project Details</title>
+  <style>
+    /*Basic Page styling*/
+    body {
+      font-family: Arial, sans-serif;
+      background-color: white;
+      padding: 40px;
+    }
+    /* Project name styling: bold and blue */
+    h2 {
+      color: #0074D9;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    /* Paragraph styling for project details */
+    p {
+      font-size: 16px;
+      margin: 8px 0;
+    }
 
-        strong {
-            color: #333;
-        }
-        /* Container for buttons: Back + Apply  (flex-start to align items to the left side)*/
-        .button-row {
-        display: flex;
-        justify-content: flex-start;
-        gap: 40px;
-        margin-top: 30px;
-        }
-        /* Button styling */
-        .button {
-        background-color: #0074D9;
-        color: white;
-        border: none;
-        padding: 10px 18px;
-        font-size: 16px;
-        border-radius: 6px;
-        }
-        .button:hover {
-        background-color: #000080;
-        }
-        /* Error message styling */
-        .full-message {
-            color: red;
-            font-weight: bold;
-            margin-top: 30px;
-        }
-    </style>
+    strong {
+      color: #333;
+    }
+    /* Container for buttons: Back + Apply  (flex-start to align items to the left side)*/
+    .button-row {
+      display: flex;
+      justify-content: flex-start;
+      gap: 40px;
+      margin-top: 30px;
+    }
+    /* Button styling */
+    .button {
+      background-color: #0074D9;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+    .button:hover {
+      background-color: #000080;
+    }
+    /* Error message styling */
+    .full-message {
+      color: red;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
 
@@ -66,19 +66,19 @@
 
 <!-- Back Button -->
 <div class="button-row">
-    <a th:href="@{/project}">
-        <button type="button" class="button">Back to Projects</button>
+  <a th:href="@{/project}">
+    <button type="button" class="button">Back to Projects</button>
+  </a>
+  <!-- Apply Navigation only if project not full -->
+  <div th:if="${#lists.size(project.students) < project.capacity}">
+    <a th:href="@{/project/apply/{id}(id=${project.id})}">
+      <button type="button" class="button">Apply to this Project</button>
     </a>
-    <!-- Apply Navigation only if project not full -->
-    <div th:if="${#lists.size(project.students) < project.capacity}">
-        <a th:href="@{/project/apply/{id}(id=${project.id})}">
-            <button type="button" class="button">Apply to this Project</button>
-        </a>
-    </div>
+  </div>
 </div>
 <!-- Full Message only if project is full -->
 <div th:if="${#lists.size(project.students) >= project.capacity}" class="full-message">
-   <p class="full-message">This project is full. Applications are closed.</p>
+  <p class="full-message">This project is full. Applications are closed.</p>
 </div>
 
 
@@ -91,22 +91,39 @@
 <!-- Students already in the project -->
 <h3>Students in this Project</h3>
 <ul>
-    <li th:each="s : ${studentsInProject}">
-        <span th:text="${s.studentName}"></span> (<span th:text="${s.studentEmail}"></span>)
-    </li>
+  <li th:each="s : ${studentsInProject}">
+    <span th:text="${s.studentName}"></span> (<span th:text="${s.studentEmail}"></span>)
+  </li>
 </ul>
 
 <hr/>
 
+<!-- Student Report Upload Section -->
+<div>
+  <h3>Submit Your Project Report</h3>
+  <form th:action="@{/project/{projectId}/uploadReport(projectId=${project.id})}"
+        method="post"
+        enctype="multipart/form-data">
+
+    <label for="studentId"><strong>Student ID:</strong></label>
+    <input type="text" id="studentId" name="studentId" required pattern="\d+" />
+
+    <label for="file"><strong>Select PDF Report:</strong></label>
+    <input type="file" id="file" name="file" accept="application/pdf" required /><br><br>
+
+    <button type="submit" class="button">Upload Report</button>
+  </form>
+</div>
+
 <!-- Links to coordinator tasks -->
 <h3>Coordinator Actions</h3>
 <div class="button-row">
-    <a th:href="@{/project/{id}/calendar(id=${project.id})}">
-        <button type="button" class="button">Schedule Oral Presentation</button>
-    </a>
-    <a th:href="@{/project/{id}/availability(id=${project.id})}">
-        <button type="button" class="button">Enter Availability</button>
-    </a>
+  <a th:href="@{/project/{id}/calendar(id=${project.id})}">
+    <button type="button" class="button">Schedule Oral Presentation</button>
+  </a>
+  <a th:href="@{/project/{id}/availability(id=${project.id})}">
+    <button type="button" class="button">Enter Availability</button>
+  </a>
 </div>
 
 

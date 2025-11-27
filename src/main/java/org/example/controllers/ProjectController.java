@@ -7,11 +7,19 @@ import org.example.repositories.ProfessorRepository;
 import org.example.repositories.ProjectRepository;
 import org.example.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -128,6 +136,12 @@ public class ProjectController {
                             .collect(Collectors.toList());
                     model.addAttribute("studentsInProject", studentsInProject);
 
+                    Student currentStudent = studentRepository.findAll().stream()
+                            .filter(s -> s.getProject() != null && s.getProject().getId().equals(id))
+                            .findFirst().orElse(null);
+
+                    model.addAttribute("currentStudent", currentStudent);
+
                     return "ProjectDetails"; // ProjectDetails.html
                 })
                 .orElse("redirect:/project");
@@ -183,6 +197,54 @@ public class ProjectController {
         redirectAttributes.addFlashAttribute("success", "You have joined the project!");
         return "redirect:/project/" + id;
     }
+
+    @PostMapping("/project/{projectId}/uploadReport")
+    public String uploadReport(@PathVariable Long projectId,
+                               @RequestParam("studentId") Long studentId,
+                               @RequestParam("file") MultipartFile file,
+                               RedirectAttributes redirectAttributes) {
+
+        try {
+            // Get the student
+            Student student = studentRepository.findById(studentId).orElse(null);
+            if (student == null || student.getProject() == null || !student.getProject().getId().equals(projectId)) {
+                redirectAttributes.addFlashAttribute("error", "You are not enrolled in this project.");
+                return "redirect:/project/" + projectId;
+            }
+
+            // Check deadline
+            LocalDate deadline = student.getProject().getDeadline();
+            if (deadline != null && LocalDate.now().isAfter(deadline)) {
+                redirectAttributes.addFlashAttribute("error", "Cannot upload: the deadline has passed!");
+                return "redirect:/project/" + projectId;
+            }
+
+            // Validate PDF
+            if (!file.getContentType().equals("application/pdf")) {
+                redirectAttributes.addFlashAttribute("error", "Only PDF files are allowed!");
+                return "redirect:/project/" + projectId;
+            }
+
+
+            Path uploadPath = Paths.get("uploads/student/" + student.getStudentID());
+            Files.createDirectories(uploadPath);
+
+
+            Path filePath = uploadPath.resolve("report.pdf");
+            Files.write(filePath, file.getBytes());
+
+
+            student.setFilePath(filePath.toString());
+            studentRepository.save(student);
+
+            redirectAttributes.addFlashAttribute("success", "Report uploaded successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error uploading file: " + e.getMessage());
+        }
+
+        return "redirect:/project/" + projectId;
+    }
+
 
 
     // Calendar
