@@ -1,0 +1,106 @@
+@startuml
+
+'========================
+' Packages
+'========================
+package "org.example.controllers" {
+    class ProjectController
+    class CoordinatorController
+    class HomePageController
+    class ProfessorController
+    class ProfessorWebController
+}
+
+package "org.example.repositories" {
+    interface ProjectRepository
+    interface ProfessorRepository
+    interface StudentRepository
+}
+
+package "org.example" {
+    class Project
+    class Professor
+    class Student
+    class EmailService
+}
+
+'========================
+' Controllers Members
+'========================
+ProjectController : -ProjectRepository projectRepository
+ProjectController : -ProfessorRepository professorRepository
+ProjectController : -StudentRepository studentRepository
+ProjectController : -Map<Long,String> scheduledPresentations
+
+CoordinatorController : -StudentRepository studentRepository
+HomePageController : +home()
+ProfessorController : -ProfessorRepository professorRepository
+ProfessorWebController : -ProfessorRepository professorRepository
+ProfessorWebController : -ProjectRepository projectRepository
+
+'========================
+' Entity Members
+'========================
+Project : -Long id
+Project : -String name
+Project : -Integer capacity
+Project : -String description
+Project : -String department
+Project : -String status
+Project : -Integer academicYear
+Project : -String requiredSkills
+Project : -boolean archived
+Project : -List<Student> students
+Project : -List<Professor> professor
+
+Professor : -Long professor_id
+Professor : -String name
+Professor : -String email
+Professor : -boolean coordinator
+Professor : -List<Project> listOfProjects
+
+Student : -long studentID
+Student : -String studentName
+Student : -String studentEmail
+Student : -boolean reportSubmitted
+Student : -String department
+Student : -Project project
+Student : -List<String> studentAvailability
+
+EmailService : -String username
+EmailService : -String password
+EmailService : -Session session
+EmailService : +sendEmail(String,String,String)
+
+'========================
+' Repositories Relationships
+'========================
+ProjectController --> ProjectRepository
+ProjectController --> ProfessorRepository
+ProjectController --> StudentRepository
+
+CoordinatorController --> StudentRepository
+ProfessorController --> ProfessorRepository
+ProfessorWebController --> ProfessorRepository
+ProfessorWebController --> ProjectRepository
+
+ProjectRepository <|.. Project
+ProfessorRepository <|.. Professor
+StudentRepository <|.. Student
+
+'========================
+' Entities Relationships
+'========================
+Project "1" -- "0..*" Student : has
+Project "1" -- "0..*" Professor : supervised_by
+Student --> Project : enrolled_in
+Professor --> Project : supervises
+
+'========================
+' Other Relationships
+'========================
+ProjectController --> Student : manages
+ProjectController --> Professor : manages
+EmailService ..> Student : sends reminder to
+
+@enduml
