@@ -36,13 +36,15 @@ public class ProjectTest {
         student.setStudentName("Clark Kent");
         student.setDepartment("CIVE");
 
-        assertFalse(project.addStudent(student));
-        assertEquals((long) project.getCapacity(), (long) 4);
+        // Wrong department → should fail
+        assertEquals("Student department does not match project department.", project.addStudent(student));
+        assertEquals(4, (long) project.getCapacity());
         assertFalse(project.getStudent().contains(student));
 
+        // Correct department → should succeed
         student.setDepartment("SYSC");
-        assertTrue(project.addStudent(student));
-        assertEquals((long) project.getCapacity(), (long)3);
+        assertEquals("Successfully registered!", project.addStudent(student));
+        assertEquals(4, (long) project.getCapacity()); // still 4
         assertTrue(project.getStudent().contains(student));
     }
 }
