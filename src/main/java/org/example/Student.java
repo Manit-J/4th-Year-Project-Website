@@ -15,13 +15,13 @@ import java.util.Locale;
 public class Student {
     // Unique identifier for the student
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long studentID;   // The student's student ID
 
     private String studentName; // The student's first and last name
     private String studentEmail;  // The student's email
     private boolean reportSubmitted;
     private String department; // The student's department
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -186,6 +186,29 @@ public class Student {
         this.department = department;
     }
 
+    /**
+     * Sets password of the student
+     *
+     * @param password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * Gets password of the student
+     *
+     * @return password The password of the student
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Sends an email reminder to student.
+     *
+     * @throws MessagingException
+     */
     public void sendReminder() throws MessagingException {
         EmailService emailService = new EmailService();
 
