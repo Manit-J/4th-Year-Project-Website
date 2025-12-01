@@ -28,52 +28,34 @@ The website can be found here: project-11-sysc-4th-year-project-website-c6g3cjdp
   
 ## Current State of the Project
 
-Currently, the project has foundational components of the system in place. The core entities of **Student**, **Professor**, **Project** and **Coordinator** along with their repositories, have been implemented and integrated with the database. The web layer using Spring Boot and Thymeleaf is also set up, which allows users to perform basic operations such as viewing, adding, and removing professors, students, and projects.
+The project has numerous functional components in place that make the product usable and useful. The core entities of **Student**, **Professor**, **Project** and **Coordinator** along with their repositories, have been implemented and integrated with the database to enable the user interface of the system. The web layer using Spring Boot and Thymeleaf is also set up, which allows users to perform basic operations such as viewing, adding, and removing professors, students, and projects. 
 
 The application supports essential CRUD functionality for these entities through simple, functional web interfaces. The existing HTML templates provide basic data display and input capabilities, though they are minimal in design.
 
 ## Work Done this Milestone
 
-1. New Feature - Check for Program Restrictions
-   * An error is displayed when adding a student to a project from a different department
-2. New Feature - Send Reminders to Students
-   * Project coordinator sends reminders to students without a project
+1. New Feature - Student Logins and Templates updated
+   * Student logins was added, and templates for Student were updated.
+2. New Feature - Professor Logins
+   * ProfLogin class with attributes such as username and password and corresponding setter/getter methods were added.
+   * Template for Professor Login was added.
 3. Student Template updated
-   * Student template was updated to enhance UI
+   * Student template was updated to enhance UI.
 4. Professor Template updated
    * Professor template was updated to look more attractive and to enable better usability with the Bootstrap framework.
-   * Projects can be added directly from professor's page to view their projects in a table
-5. Coordinator Controller implemented
-   * The coordinator controller enables new functionalities, such as allowing professors to view a list of students without a project
-6. Web controller and Integration Tests
-   * ProjectCrontrollerTest, StudentControllerTest, WebMockTest, and ProfessorControllerTest were implemented to test each controller
-7. Archived Projects template
-   * archivedprojects HTML template was made to archive projects in relation to updates from the project class, projectController and projectRepository
-8. New Feature - Oral Presentation
-   * A new template displays a calendar view for each project showing the date and time scheduled by the project coordinator for the oral presentation
-9. New Feature - Enter Availability
-   * An enter availability is displayed next to each participant and professor for their project
-10. New Feature - Applying for Projects
-     * Anyone can apply for a project and enter the details of the student that they wish to add to the project.
-     * If Project Capacity is full, the Apply button won't be visible, and an error message will be displayed
-11. Project Template updated
-     * Project template was updated to enhance UI
-12. Update the Landing Page template
-     * Landing page lists links to professors, students, and projects, and was updated to enhance UI
+   * Projects can be added directly from professor's page to view their projects in a table.
+5. Professor Controller updated
+   * Professor Controller was updated to work with the login controller and make sure that the professor page appears after login is successful.
+6. Project Status Updated
+   * Project status is updated to automatically display a full project when it reaches maximum capacity. 
+7. Student Binding Issue fixed
+   * Student binding issue was fixed to list the name, id and email for the student, to remove undefined values.
+8. Oral Presentation Template updated
+   * UI added to calendar template that displays the scheduled project by the project coordinator.
+9. New Feature - Upload Button
+   * PDF upload button was made to student reports in PDF form on the project page before the deadline, and to not be accepted after the deadline.
+
   
-## Work for next Milestone
-For the next milestone, the team will focus on preparing the Final demo of the system. We will ensure that the app is functional and provides a meaningful experience for users. We will also ensure that the overall product is usable and useful. 
-
-Looking ahead, the team plans to enhance the user experience by improving the HTML templates and controllers to be more user-friendly and visually appealing. Key upcoming features include:
-
-- Fully implementing the coordinator's functionalities to ensure that one professor has coordinator privileges.
-- Allocating oral presentations to rooms based on availability.
-- Enhancing the UI for the student page to make it more aesthetically appealing and functional.
-- Complete any outstanding features.
-
-These enhancements will help ensure that the application supports meaningful workflows, providing a valuable tool for both students and faculty.
-
-Additionally, the README on GitHub will be updated to include a clear and detailed outline of the features implemented.
 
 ## Class Diagram
 
