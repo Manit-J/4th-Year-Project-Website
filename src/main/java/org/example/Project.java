@@ -1,8 +1,14 @@
 package org.example;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 //Project will be marked as a database table
 @Entity
@@ -20,6 +26,8 @@ public class Project {
     private Integer academicYear;
     private String requiredSkills;
     private boolean archived = false;
+    private LocalDate deadline;
+
 
     /**
      * One Project can have many students
@@ -111,6 +119,13 @@ public class Project {
         return description;
     }
 
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -162,7 +177,7 @@ public class Project {
         }
     }
 
-    public Project(Long id, String name, int capacity, String description, String department, String status, String requiredSkills, int academicYear, List<Student> students, List<Professor> professor) {
+    public Project(Long id, String name, int capacity, String description, String department, String status, String requiredSkills, int academicYear, List<Student> students, List<Professor> professor, LocalDate deadline) {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
@@ -173,6 +188,7 @@ public class Project {
         this.academicYear = academicYear;
         this.students = students;
         this.professor = professor;
+        this.deadline = deadline;
     }
 
     //Default constructor to be used by JPA

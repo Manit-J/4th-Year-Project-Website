@@ -22,6 +22,7 @@ public class Student {
     private String studentEmail;  // The student's email
     private boolean reportSubmitted;
     private String department; // The student's department
+    private String filePath;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -175,6 +176,13 @@ public class Student {
      */
     public String getDepartment() {
         return department;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+    public String getFilePath() {
+        return filePath;
     }
 
     /**
