@@ -1,4 +1,7 @@
 package org.example;
+import org.springframework.mock.web.MockHttpSession;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import org.example.controllers.ProfessorController;
 import org.example.controllers.ProfessorWebController;
@@ -42,10 +45,21 @@ public class ProfessorControllerTest {
         given(professorRepository.findAll())
                 .willReturn(List.of(new Professor()));
 
-        mockMvc.perform(get("/professors"))
+        MockHttpSession session = new MockHttpSession();
+        session.setAttribute("profLoggedIn", true);
+
+        mockMvc.perform(get("/professors").session(session))
                 .andExpect(status().isOk())// Expect HTTP 200 OK status
                 .andExpect(view().name("professors"))// Expect the view returned to be named "professors"
                 .andExpect(model().attributeExists("professors"))// Expect the model to contain an attribute "professors" (list of all professors)
                 .andExpect(model().attributeExists("professor"));// Expect the model to contain an attribute "professor" when creating a new professor
+    }
+
+    @Test
+    void shouldRedirectToLoginWhenNotLoggedIn() throws Exception {
+        mockMvc.perform(get("/professors"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/profLogin"));
     }
 }
