@@ -122,14 +122,21 @@ public class Project {
      * @param student The student to be added
      * @return true if student was added, false otherwise
      */
-    public boolean addStudent(Student student){
+    public String addStudent(Student student){
         if (department.contains(student.getDepartment()) && capacity > 0){
+            // Check if student already exists in this project (by ID)
+            for (Student s : students) {
+                if (s.getStudentID() == (student.getStudentID())) {
+                    // Already assigned
+                    return "You are already registered in this project.";
+                }
+            }
             students.add(student);
-            capacity--;
-            return true;
+            updateStatus();
+            return "Successfully registered in this project.";
         }
         else{
-            return false;
+            return "Student department does not match project department.";
         }
     }
 
@@ -144,6 +151,14 @@ public class Project {
         if (!this.professor.contains(professor)) {
             this.professor.add(professor);
             professor.getProjects().add(this);
+        }
+    }
+    // Auto status update
+    public void updateStatus() {
+        if (students.size() == capacity) {
+            this.status = "Full";
+        } else {
+            this.status = "Open";
         }
     }
 

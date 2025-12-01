@@ -135,12 +135,12 @@
         <!-- Current Students List -->
         <div class="section-title">Current Students</div>
         <ul id="studentList">
-            <li th:each="s : ${students}" th:id="'student-' + ${s.id}">
-                ID: <span th:text="${s.id}"></span>,
-                Name: <span th:text="${s.name}"></span>,
-                Email: <span th:text="${s.email}"></span>,
+            <li th:each="s : ${students}" th:id="'student-' + ${s.studentID}">
+                ID: <span th:text="${s.studentID}"></span>,
+                Name: <span th:text="${s.studentName}"></span>,
+                Email: <span th:text="${s.studentEmail}"></span>,
                 Department: <span th:text="${s.department}"></span>
-                <button type="button" th:onclick="'deleteStudent(' + ${s.id} + ')'">Delete</button>
+                <button type="button" th:onclick="'deleteStudent(' + ${s.studentID} + ')'">Delete</button>
             </li>
         </ul>
 
@@ -149,14 +149,14 @@
 
 <script>
     function addStudent() {
-        const id = document.getElementById('studentID').value;
-        const name = document.getElementById('studentName').value;
-        const email = document.getElementById('studentEmail').value;
+        const studentID  = document.getElementById('studentID').value;
+        const studentName  = document.getElementById('studentName').value;
+        const studentEmail  = document.getElementById('studentEmail').value;
         const department = document.getElementById('studentDepartment').value;
 
-        if (!id || !name || !email || !department) return;
+        if (!studentID || !studentName || !studentEmail || !department) return;
 
-        const student = {id, name, email, department};
+        const student = {studentID, studentName, studentEmail, department};
 
         fetch('/student', {
             method: 'POST',
@@ -167,10 +167,10 @@
             .then(savedStudent => {
                 const ul = document.getElementById('studentList');
                 const li = document.createElement('li');
-                li.id = 'student-' + savedStudent.id;
+                li.id = 'student-' + savedStudent.studentID;
                 li.innerHTML = `
-                ID: ${savedStudent.id}, Name: ${savedStudent.name}, Email: ${savedStudent.email}, Department: ${savedStudent.department}
-                <button onclick="deleteStudent(${savedStudent.id})">Delete</button>
+                ID: ${savedStudent.studentID}, Name: ${savedStudent.studentName}, Email: ${savedStudent.studentEmail}, Department: ${savedStudent.department}
+                <button onclick="deleteStudent(${savedStudent.studentID})">Delete</button>
             `;
                 ul.appendChild(li);
 

@@ -50,6 +50,28 @@
             font-weight: bold;
             margin-top: 30px;
         }
+
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 12px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 16px;
+        }
+        .toast.show {
+            visibility: visible;
+        }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+
     </style>
 </head>
 <body>
@@ -109,6 +131,19 @@
     </a>
 </div>
 
+<!-- Toast message -->
+<div id="toast" th:text="${message}"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var msg = [[${message}]];
+    if (msg) {
+        var toast = document.getElementById("toast");
+        toast.className = "toast show";
+        setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 4000);
+    }
+    /*]]>*/
+</script>
 
 <hr/>
 </body>
