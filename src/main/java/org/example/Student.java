@@ -166,9 +166,7 @@ public class Student {
      * @param project the project to set
      */
     public void setProject(Project project) {
-        if (project.addStudent(this)){
             this.project = project;
-        }
     }
 
     /**

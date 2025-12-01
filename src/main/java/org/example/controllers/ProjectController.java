@@ -107,29 +107,39 @@ public class ProjectController {
     }
 
     @PostMapping("/apply/{id}")
-    public String applyToProject(@PathVariable Long id, @ModelAttribute Student student) {
+    public String applyToProject(@PathVariable Long id, @ModelAttribute Student student, RedirectAttributes ra) {
         Project project = projectRepository.findById(id).orElse(null);
-        if (project != null && project.getStudent().size() < project.getCapacity()) {
-            //link student to the project
-            student.setProject(project);
-            //Add student to the project's student list
-            project.getStudent().add(student);
-            projectRepository.save(project);
+        if (project == null) {
+            ra.addFlashAttribute("error", "Invalid project ID.");
+            return "redirect:/projects";
         }
-        return "redirect:/project";
+        if (project.getStudent().stream()
+                .anyMatch(s -> s.getStudentEmail().equals(student.getStudentEmail()))) {
+            ra.addFlashAttribute("message", "You are already registered in this project.");
+            return "redirect:/project/" + id;
+        }
+        // Add student
+        student.setProject(project);
+        studentRepository.save(student);
+        project.getStudent().add(student);
+        // Update status based on capacity
+        if (project.getStudent().size() >= project.getCapacity()) {
+            project.setStatus("Full");
+        } else {
+            project.setStatus("Open");
+        }
+
+        projectRepository.save(project);
+        ra.addFlashAttribute("message", "Successfully registered!");
+        return "redirect:/project/" + id;
     }
 
     @GetMapping("/{id}")
-    public String viewDetails(@PathVariable Long id, Model model,
-                              @ModelAttribute("error") String error,
-                              @ModelAttribute("success") String success) {
+    public String viewDetails(@PathVariable Long id, Model model) {
 
         return projectRepository.findById(id)
                 .map(project -> {
                     model.addAttribute("project", project);
-                    model.addAttribute("error", error);
-                    model.addAttribute("success", success);
-
                     // Students in this project
                     List<Student> studentsInProject = studentRepository.findAll().stream()
                             .filter(s -> s.getProject() != null && s.getProject().getId().equals(id))
@@ -333,7 +343,6 @@ public class ProjectController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error saving availability: " + e.getMessage());
         }
-
         return "redirect:/project/" + id + "/availability";
     }
 }

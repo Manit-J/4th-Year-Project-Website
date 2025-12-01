@@ -135,6 +135,23 @@
         font-size: 16px;
         margin-top: 0px;
         }
+        .status-badge {
+        padding: 6px 12px;
+        border-radius: 12px;
+        font-size: 14px;
+        color: white;
+    }
+    /* Color-coded status */
+    .status-badge.open {
+        background-color: #2ECC40; /* green */
+    }
+    .status-badge.full {
+        background-color: #FF4136; /* red */
+    }
+    .status-badge.closed {
+        background-color: #AAAAAA; /* gray */
+    }
+
     </style>
 </head>
 <body>
@@ -202,7 +219,10 @@
                 <div class="group-number" th:text="'Group ' + ${proj.id}"></div>
                 <strong th:text="${proj.name}"></strong>
                 <span th:text="${proj.department}"></span>
-                <span th:text="${proj.status}"></span>
+                <span class="status-badge"
+                      th:text="${proj.status}"
+                      th:classappend="' ' + ${proj.status.toLowerCase()}">
+                </span>
                 <div class="actions">
                     <!-- Link to view project details -->
                     <a th:href="@{/project/{id}(id=${proj.id})}">
@@ -219,7 +239,13 @@
             <input type="number" id="projectId" name="id" required/>
             <button type="submit">Delete Project</button>
         </form>
-
+            <!-- Archive Project Form -->
+            <div class="section-title">Archive a Project</div>
+            <form th:action="@{/project/archive}" method="post">
+                <label for="projectId">Project ID:</label>
+                <input type="number" id="Id" name="id" required/>
+                <button type="submit">Archive Project</button>
+        </form>
     </div>
 </div>
 </body>
