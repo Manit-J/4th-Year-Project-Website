@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: #0074D9;
+            font-size: 36px;
+            margin: 0;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: flex-start;
+            padding: 40px 60px;
+        }
+
+        .left-column {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 25px 0 20px 0;
+            color: #333;
+        }
+
+        form, .student-card {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fefefe;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        form input, form select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        form button {
+            margin-top: 20px;
+            background-color: #0074D9;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background .3s, transform .2s;
+        }
+
+        form button:hover {
+            background-color: #000080;
+            transform: scale(1.05);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        li button {
+            margin-left: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Student Management</h1>
+</header>
+
+<!-- Current Students List -->
+<div class="section-title">Current Students</div>
+<ul id="studentList">
+    <li th:each="s : ${students}" th:id="'student-' + ${s.getStudentID()}">
+        ID: <span th:text="${s.getStudentID()}"></span>,
+        Name: <span th:text="${s.getStudentName()}"></span>,
+        Email: <span th:text="${s.getStudentEmail()}"></span>,
+        Department: <span th:text="${s.getDepartment()}"></span>
+        <button type="button" th:onclick="'deleteStudent(' + ${s.getStudentID()} + ')'">Delete</button>
+    </li>
+</ul>
+
+<script>
+
+    function deleteStudent(id) {
+        fetch(`/student/${id}`, {method: 'DELETE'})
+            .then(response => {
+                if (!response.ok) throw new Error('Delete failed');
+                const li = document.getElementById('student-' + id);
+                if (li) li.remove();
+            })
+            .catch(err => console.error(err));
+    }
+</script>
+
+</body>
+</html>

@@ -107,11 +107,14 @@
     <h1>Student Management</h1>
 </header>
 
+<div th:if="${message}" style="color: green; font-weight: bold;">
+    <p th:text="${message}"></p>
+</div>
+
 <div class="main-container">
     <div class="left-column">
-
-        <!-- Add Student Form -->
-        <div class="section-title">Add a New Student</div>
+        <!-- Register Student Form -->
+        <div class="section-title">Registration</div>
         <form id="addStudentForm">
             <label>Student ID:</label>
             <input type="number" id="studentID" required>
@@ -129,68 +132,73 @@
                 <option value="Mechanical Engineering">Mechanical Engineering</option>
                 <option value="Aerospace Engineering">Aerospace Engineering</option>
             </select>
-            <button type="button" onclick="addStudent()">Add Student</button>
+            <label>Password:</label>
+            <input type="text" id="studentPassword" required>
+            <button type="button" onclick="registerStudent()">Register</button>
         </form>
-
-        <!-- Current Students List -->
-        <div class="section-title">Current Students</div>
-        <ul id="studentList">
-            <li th:each="s : ${students}" th:id="'student-' + ${s.studentID}">
-                ID: <span th:text="${s.studentID}"></span>,
-                Name: <span th:text="${s.studentName}"></span>,
-                Email: <span th:text="${s.studentEmail}"></span>,
-                Department: <span th:text="${s.department}"></span>
-                <button type="button" th:onclick="'deleteStudent(' + ${s.studentID} + ')'">Delete</button>
-            </li>
-        </ul>
-
     </div>
+
+    <div style="width: 10%;">
+        &nbsp;
+    </div>
+
+    <div class="right-column">
+        <!-- Login Student Form -->
+        <div class="section-title">Login</div>
+        <form action="/student/studentRegistration/login" id="loginForm" method="post">
+            <label>Student Email:</label>
+            <input type="text" name="studentEmailLogin" required>
+            <label>Password:</label>
+            <input type="password" name="studentPasswordLogin" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
 </div>
 
 <script>
-    function addStudent() {
-        const studentID  = document.getElementById('studentID').value;
-        const studentName  = document.getElementById('studentName').value;
-        const studentEmail  = document.getElementById('studentEmail').value;
+    function registerStudent() {
+        const id = document.getElementById('studentID').value;
+        const name = document.getElementById('studentName').value;
+        const email = document.getElementById('studentEmail').value;
         const department = document.getElementById('studentDepartment').value;
+        const password = document.getElementById('studentPassword').value;
 
-        if (!studentID || !studentName || !studentEmail || !department) return;
+        if (!id || !name || !email || !department || !password) return;
 
-        const student = {studentID, studentName, studentEmail, department};
+        const student = {
+            studentID: id,
+            studentName: name,
+            studentEmail: email,
+            department: department,
+            password: password
+        };
 
-        fetch('/student', {
+        fetch('/student/studentRegistration', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(student)
         })
-            .then(response => response.json())
-            .then(savedStudent => {
-                const ul = document.getElementById('studentList');
-                const li = document.createElement('li');
-                li.id = 'student-' + savedStudent.studentID;
-                li.innerHTML = `
-                ID: ${savedStudent.studentID}, Name: ${savedStudent.studentName}, Email: ${savedStudent.studentEmail}, Department: ${savedStudent.department}
-                <button onclick="deleteStudent(${savedStudent.studentID})">Delete</button>
-            `;
-                ul.appendChild(li);
-
-                // Clear form
-                document.getElementById('studentID').value = '';
-                document.getElementById('studentName').value = '';
-                document.getElementById('studentEmail').value = '';
-                document.getElementById('studentDepartment').value = '';
-            })
-            .catch(err => console.error(err));
-    }
-
-    function deleteStudent(id) {
-        fetch(`/student/${id}`, {method: 'DELETE'})
             .then(response => {
-                if (!response.ok) throw new Error('Delete failed');
-                const li = document.getElementById('student-' + id);
-                if (li) li.remove();
+                if (!response.ok) {
+                    throw new Error("Registration failed");
+                }
+                return response.json();
             })
-            .catch(err => console.error(err));
+            .then(data => {
+                alert("Registration Successful!");
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Error during registration");
+            })
+
+        // Clear form
+        document.getElementById('studentID').value = '';
+        document.getElementById('studentName').value = '';
+        document.getElementById('studentEmail').value = '';
+        document.getElementById('studentDepartment').value = '';
+        document.getElementById('studentPassword').value = '';
     }
 </script>
 
