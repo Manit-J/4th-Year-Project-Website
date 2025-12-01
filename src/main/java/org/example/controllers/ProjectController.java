@@ -7,11 +7,19 @@ import org.example.repositories.ProfessorRepository;
 import org.example.repositories.ProjectRepository;
 import org.example.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -99,34 +107,50 @@ public class ProjectController {
     }
 
     @PostMapping("/apply/{id}")
-    public String applyToProject(@PathVariable Long id, @ModelAttribute Student student) {
+    public String applyToProject(@PathVariable Long id, @ModelAttribute Student student, RedirectAttributes ra) {
         Project project = projectRepository.findById(id).orElse(null);
-        if (project != null && project.getStudent().size() < project.getCapacity()) {
-            //link student to the project
-            student.setProject(project);
-            //Add student to the project's student list
-            project.getStudent().add(student);
-            projectRepository.save(project);
+        if (project == null) {
+            ra.addFlashAttribute("error", "Invalid project ID.");
+            return "redirect:/projects";
         }
-        return "redirect:/project";
+        if (project.getStudent().stream()
+                .anyMatch(s -> s.getStudentEmail().equals(student.getStudentEmail()))) {
+            ra.addFlashAttribute("message", "You are already registered in this project.");
+            return "redirect:/project/" + id;
+        }
+        // Add student
+        student.setProject(project);
+        studentRepository.save(student);
+        project.getStudent().add(student);
+        // Update status based on capacity
+        if (project.getStudent().size() >= project.getCapacity()) {
+            project.setStatus("Full");
+        } else {
+            project.setStatus("Open");
+        }
+
+        projectRepository.save(project);
+        ra.addFlashAttribute("message", "Successfully registered!");
+        return "redirect:/project/" + id;
     }
 
     @GetMapping("/{id}")
-    public String viewDetails(@PathVariable Long id, Model model,
-                              @ModelAttribute("error") String error,
-                              @ModelAttribute("success") String success) {
+    public String viewDetails(@PathVariable Long id, Model model) {
 
         return projectRepository.findById(id)
                 .map(project -> {
                     model.addAttribute("project", project);
-                    model.addAttribute("error", error);
-                    model.addAttribute("success", success);
-
                     // Students in this project
                     List<Student> studentsInProject = studentRepository.findAll().stream()
                             .filter(s -> s.getProject() != null && s.getProject().getId().equals(id))
                             .collect(Collectors.toList());
                     model.addAttribute("studentsInProject", studentsInProject);
+
+                    Student currentStudent = studentRepository.findAll().stream()
+                            .filter(s -> s.getProject() != null && s.getProject().getId().equals(id))
+                            .findFirst().orElse(null);
+
+                    model.addAttribute("currentStudent", currentStudent);
 
                     return "ProjectDetails"; // ProjectDetails.html
                 })
@@ -183,6 +207,54 @@ public class ProjectController {
         redirectAttributes.addFlashAttribute("success", "You have joined the project!");
         return "redirect:/project/" + id;
     }
+
+    @PostMapping("/{id}/uploadReport")
+    public String uploadReport(@PathVariable Long id,
+                               @RequestParam("studentId") Long studentId,
+                               @RequestParam("file") MultipartFile file,
+                               RedirectAttributes redirectAttributes) {
+
+        try {
+            // Get the student
+            Student student = studentRepository.findById(studentId).orElse(null);
+            if (student == null || student.getProject() == null || !student.getProject().getId().equals(id)) {
+                redirectAttributes.addFlashAttribute("error", "You are not enrolled in this project.");
+                return "redirect:/project/" + id;
+            }
+
+            // Check deadline
+            LocalDate deadline = student.getProject().getDeadline();
+            if (deadline != null && LocalDate.now().isAfter(deadline)) {
+                redirectAttributes.addFlashAttribute("error", "Cannot upload: the deadline has passed!");
+                return "redirect:/project/" + id;
+            }
+
+            // Validate PDF
+            if (!file.getContentType().equals("application/pdf")) {
+                redirectAttributes.addFlashAttribute("error", "Only PDF files are allowed!");
+                return "redirect:/project/" + id;
+            }
+
+
+            Path uploadPath = Paths.get("uploads/student/" + student.getStudentID());
+            Files.createDirectories(uploadPath);
+
+
+            Path filePath = uploadPath.resolve("report.pdf");
+            Files.write(filePath, file.getBytes());
+
+
+            student.setFilePath(filePath.toString());
+            studentRepository.save(student);
+
+            redirectAttributes.addFlashAttribute("success", "Report uploaded successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error uploading file: " + e.getMessage());
+        }
+
+        return "redirect:/project/" + id;
+    }
+
 
 
     // Calendar
@@ -271,7 +343,6 @@ public class ProjectController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error saving availability: " + e.getMessage());
         }
-
         return "redirect:/project/" + id + "/availability";
     }
 }

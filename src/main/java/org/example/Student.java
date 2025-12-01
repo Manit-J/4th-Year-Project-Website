@@ -21,6 +21,7 @@ public class Student {
     private String studentEmail;  // The student's email
     private boolean reportSubmitted;
     private String department; // The student's department
+    private String filePath;
     private String password;
 
     @ManyToOne
@@ -165,9 +166,7 @@ public class Student {
      * @param project the project to set
      */
     public void setProject(Project project) {
-        if (project.addStudent(this)){
             this.project = project;
-        }
     }
 
     /**
@@ -177,6 +176,13 @@ public class Student {
      */
     public String getDepartment() {
         return department;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+    public String getFilePath() {
+        return filePath;
     }
 
     /**
